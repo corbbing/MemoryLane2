@@ -78,7 +78,7 @@ Upgrade.prototype.draw = function(delta_t) {
 		$(this.card.title.element).html("????")
 	}
 	if (this.version >= this.maxVersion){
-		// this.card.upg_button.disable();
+		this.card.upg_btn.disable();
 	}
 	if (this.getPercent() < 1 && this.downloading){
 		var fromBPS = (GAME.getBPS() / GAME.downloading.length);
