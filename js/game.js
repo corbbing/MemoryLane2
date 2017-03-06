@@ -39,7 +39,7 @@ Game.prototype.getBPS = function () {
 	for (var i = 0; i < this.updates.length; i++) {
 		fromUpd += this.updates[i].bonus * this.updates[i].count;
 	};
-	return Math.min(this.bps + fromUpg + fromUpd,this.computer.getSpeed()) * 20;
+	return Math.min(this.bps + fromUpg + fromUpd,this.computer.getSpeed()) * 1;
 }
 
 Game.prototype.getBPC = function () {
@@ -51,7 +51,7 @@ Game.prototype.getBPC = function () {
 	for (var i = 0; i < this.updates.length; i++) {
 		fromUpd += (this.updates[i].bonus * this.updates[i].count) * 0.1;
 	};
-	return (this.bpc + fromUpg + fromUpd) * 20;
+	return (this.bpc + fromUpg + fromUpd) * 1;
 }
 
 Game.prototype.draw = function() {
@@ -65,6 +65,7 @@ Draw the game
 
 	*/
 	this.versions = {};
+	this.versions[this.computer.name] = 1;
 	
 	this.downloading = [];
 
@@ -75,6 +76,7 @@ Draw the game
 		}
 	};
 	for (var i = 0; i < this.updates.length; i++) {
+		this.versions[this.updates[i].title] = this.updates[i].version;
 		if (this.updates[i].downloading == true){
 			this.downloading.push(this.updates[i]);
 		}

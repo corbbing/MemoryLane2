@@ -7,19 +7,18 @@ function Upgrade(name,conf){
 	this.key = conf.key || "mult";
 	this.value = conf.value||0;
 	this.size = conf.size || 19710;
-	this.current = conf.current || 4941;
+	this.current = conf.current || 0;
 	this.src = "img/laser.jpg";
 	this.bps = 10;
 	this.bpc = 2;
 	this.downloading = false;
 	this.unique = conf.unique||false;
 	this.version = 0;
-	this.maxVersion = conf.maxVersion || 10;
+	this.maxVersion = conf.maxVersion || 16;
 	this.bonus = conf.bonus||3193;
 	this.requires = conf.requires || {};
 	this.type = conf.type || "upgrade";
 	this.card = new Card(this,$("#upgrades")[0]);
-
 }
 
 Upgrade.prototype.checkRequirements = function (reqs) {
@@ -62,7 +61,7 @@ Upgrade.prototype.download = function() {
 
 Upgrade.prototype.getSize = function() {
 	// return Math.pow(this.size,1 + (this.version / 12)) * GAME.getCompressionRatio();
-	return Math.log(this.size) + Math.pow(this.size,1 + (this.version / 12));
+	return Math.log(this.size) + Math.pow(this.size,1 + (this.version / 12)) * 1;
 };
 
 Upgrade.prototype.getPercent = function() {
@@ -101,48 +100,48 @@ Upgrade.prototype.draw = function(delta_t) {
 
 Upgrade.netscape = new Upgrade("netscape",{})
 Upgrade.AppleWorks = new Upgrade("AppleWorks",{
-	size: 405730,
+	size: 405730 /10,
 	requires : {
 		netscape : {
 			min : 1
 		}
 	},
-	bonus : 14914,
-})
-Upgrade.macos9 = new Upgrade("Macos9",{
-	size: 3453000,
+	bonus : 14914/10,
+});
+Upgrade.macos9 = new Upgrade("macos9",{
+	size: 3453000 / 10,
 	type : "update",
 	requires : {
 		netscape : {
 			min : 5
 		}
 	},
-	bonus : 140914,
+	bonus : 140914/10,
 })
 Upgrade.Lotus = new Upgrade("Lotus",{
-	size: 619410421,
+	size: 619410421 /10 ,
 	requires : {
 		AppleWorks : {
 			min : 3
 		}
 	},
-	bonus : 366645,
+	bonus : 1666450/10,
 })
 Upgrade.eWorld = new Upgrade("eWorld",{
-	size: 5739104133,
+	size: 5739104133 / 10,
 	requires : {
-		Macos9 : {
+		Lotus : {
+			min : 3
+		}
+	},
+	bonus : 17230014/10,
+})
+Upgrade.MacOSX = new Upgrade("MacOSX",{
+	size: 43781941304 / 10,
+	requires : {
+		macos9 : {
 			min : 10
 		}
 	},
-	bonus : 4230014,
-})
-Upgrade.MacOSX = new Upgrade("MacOSX",{
-	size: 43781941304,
-	requires : {
-		Macos9 : {
-			min : 13
-		}
-	},
-	bonus : 9790014,
+	bonus : 17230014,
 })
