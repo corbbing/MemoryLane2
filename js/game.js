@@ -1,9 +1,15 @@
 function Game () {
-	this.upgrades = [{name:"netscape",count:1,amt:0}];
-	this.updates = [{name:"macos9",count:1,amt:100}];
+	this.upgrades = [
+		{name:"netscape",count:1,amt:0},
+		{name:"AppleWorks",count:0,amt:0},
+		{name:"Lotus",count:0,amt:0},
+		{name:"eWorld",count:0,amt:0},
+		{name:"MacOSX",count:0,amt:0}
+	];
+	this.updates = [{name:"macos9",count:0,amt:100}];
 	this.versions = {};
 	this.downloading = [];
-	this.computer = null;
+	this.computer = Computer.PowerBook100;
 	this.research = {
 		"intel" : {
 			amt : 1024,
@@ -33,7 +39,19 @@ Game.prototype.getBPS = function () {
 	for (var i = 0; i < this.updates.length; i++) {
 		fromUpd += this.updates[i].bonus * this.updates[i].count;
 	};
-	return this.bps + fromUpg + fromUpd;
+	return Math.min(this.bps + fromUpg + fromUpd,this.computer.getSpeed());
+}
+
+Game.prototype.getBPC = function () {
+	var fromUpg = 0;
+	for (var i = 0; i < this.upgrades.length; i++) {
+		fromUpg += (this.upgrades[i].bonus * this.upgrades[i].count) * 0.1;
+	};
+	var fromUpd = 0;
+	for (var i = 0; i < this.updates.length; i++) {
+		fromUpd += (this.updates[i].bonus * this.updates[i].count) * 0.1;
+	};
+	return (this.bpc + fromUpg + fromUpd);
 }
 
 Game.prototype.draw = function() {
@@ -76,7 +94,7 @@ Draw the game
 	this.lastTime = now;
 	$("#total").html(filesize(this.total))
 	$("#speed").html(filesize(this.getBPS()) + "/sec")
-	$("#bpc").html(filesize(this.bpc) + "/click")
+	$("#bpc").html(filesize(this.getBPC()) + "/click")
 
 
 	this.generated = 0;

@@ -19,5 +19,5 @@ else {
 }
 
 $("#clickarea").click(function () {
-	GAME.generated += GAME.bpc;
+	GAME.generated += GAME.getBPC();
 })

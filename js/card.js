@@ -27,9 +27,10 @@ function Card(obj,parent){
 	this.container = new lm("","li","list-inline-item ccontainer",parent);
 	this.obj = obj; // An instance of "upgrade" or "research"
 	this.card = new lm.Div(this.container,"","card");
-	this.img_view = new lm.Div(this.card,"","view overlay hm-white-slight");
-	this.img = new lm("","img","rounded",this.img_view);
-	this.img.element.src = obj.src;
+	$(this.card.element).addClass("faded")
+	// this.img_view = new lm.Div(this.card,"","view overlay hm-white-slight mx-auto");
+	// this.img = new lm("","img","rounded",this.img_view);
+	// this.img.element.src = obj.src;
 	this.card_block = new lm.Div(this.card,"","card-block");
 	this.badge_tr_container = new lm.Div(this.card_block,"","badge-tr-container");
 	this.h4 = new lm("","h4","badge-tr-container",this.badge_tr_container);
@@ -39,7 +40,7 @@ function Card(obj,parent){
 	this.upgradeeffect = new lm("","p","",this.card_block);
 	this.downloaded = new lm("","span","",this.upgradeeffect);
 	new lm.Br(this.upgradeeffect);
-	this.BPS = new lm(obj.bps||"BPS","span","",this.upgradeeffect);
+	this.BPS = new lm("+"+filesize(obj.bonus)+"/sec"||"BPS","span","",this.upgradeeffect);
 	new lm.Br(this.upgradeeffect);
 	this.BPC = new lm(obj.bpc||"BPC","span","",this.upgradeeffect);
 	this.progress_bar = new lm.Div(this.card_block,"","progress");
