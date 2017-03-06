@@ -23,7 +23,3 @@ Computer.mod = function (conf) {
 	this.speed = conf.speed || 0;
 	this.storage = conf.storage || 0;
 }
-
-Computer.mod.backup = new Computer.mod({storage : 103014});
-
-Computer.PowerBook100.mods.push(Computer.mods.backup)

@@ -39,7 +39,7 @@ Game.prototype.getBPS = function () {
 	for (var i = 0; i < this.updates.length; i++) {
 		fromUpd += this.updates[i].bonus * this.updates[i].count;
 	};
-	return Math.min(this.bps + fromUpg + fromUpd,this.computer.getSpeed());
+	return Math.min(this.bps + fromUpg + fromUpd,this.computer.getSpeed()) * 20;
 }
 
 Game.prototype.getBPC = function () {
@@ -51,7 +51,7 @@ Game.prototype.getBPC = function () {
 	for (var i = 0; i < this.updates.length; i++) {
 		fromUpd += (this.updates[i].bonus * this.updates[i].count) * 0.1;
 	};
-	return (this.bpc + fromUpg + fromUpd);
+	return (this.bpc + fromUpg + fromUpd) * 20;
 }
 
 Game.prototype.draw = function() {

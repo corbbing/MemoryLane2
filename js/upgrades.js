@@ -78,7 +78,7 @@ Upgrade.prototype.draw = function(delta_t) {
 		$(this.card.title.element).html("????")
 	}
 	if (this.version >= this.maxVersion){
-		this.card.upg_button.disable();
+		// this.card.upg_button.disable();
 	}
 	if (this.getPercent() < 1 && this.downloading){
 		var fromBPS = (GAME.getBPS() / GAME.downloading.length);
@@ -126,7 +126,7 @@ Upgrade.Lotus = new Upgrade("Lotus",{
 			min : 3
 		}
 	},
-	bonus : 149014,
+	bonus : 366645,
 })
 Upgrade.eWorld = new Upgrade("eWorld",{
 	size: 5739104133,
