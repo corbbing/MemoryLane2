@@ -49,7 +49,13 @@ html, body {
 	cursor: pointer;
 }
 
-
+.noselect {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
 
 	</style>
 </head>
@@ -83,13 +89,14 @@ html, body {
 		<strong>Welcome back to Memory Lane! Your server has been using a daemon to download information when you were away! (1.66 gb)</strong>
 	</div>
 </section>
-<section class="bg-primary teal">
+<section class="bg-primary teal" id="clickarea">
 	<div class="container infoarea">
 			<div class="row text-center">
-				<div class="col-md-6 mx-auto">
-					<h1 class="apptitle">Memory Lane 2</h1>
-					<h1 class="text-huge">0.0 bytes</h1>
-					<h3 class="speed">0 bytes/sec</h3>
+				<div class="col-md-6 mx-auto noselect">
+					<h1 class="apptitle" id="namever">Memory Lane 2.0.1 alpha</h1>
+					<h1 class="text-huge" id="total">0.0 bytes</h1>
+					<h3 id="speed">0 bytes/sec</h3>
+					<h3 id="bpc">0 bytes/click</h3>
 				</div>
 			</div>
 		</div>
@@ -142,46 +149,7 @@ html, body {
 	<div class="container">
 		<div class="row">
 			<ul id="upgrades" class="list-inline">
-				<li class="ccontainer list-inline-item">
-					<div class="card">
-					    <!--Card image-->
-					    <div class="view overlay hm-white-slight">
-					        <img src="img/copperwire.jpg" class="rounded mx-auto d-block" alt="">
-					        <a href="#">
-					            <div class="mask waves-effect waves-light"></div>
-					        </a>
-					    </div>
-					    <!--/.Card image-->
-
-					    <!--Card content-->
-					    <div class="card-block">
-						    <div class="badge-tr-container">
-						    	<h4>
-						    		<span class="badge badge-default badge-tr">0</span>
-						    	</h4>
-						    </div>
-					        <!--Title-->
-					        <h4 class="card-title text-center">Copper Wire</h4>
-					        <!--Text-->
-					        <p>0 bits/sec <br> Cost: 1 byte</p>
-					        <p class="card-text green-text">
-					        	<span>+8 bits/sec</span>
-					        	<br>
-					        	<span>+12 bits/click</span>
-					        </p>
-					        <div class="progress">
-							  <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-
-
-					        <div class=" text-center">
-					        	<a id="" class="btn btn-primary">Upgrade</a>
-					        	<a href="#" class="btn btn-primary">Sell</a>
-					        </div>
-					    </div>
-					    <!--/.Card content-->
-					</div>
-				</li>
+				
 			</ul>
 		</div>
 	</div>
@@ -240,6 +208,7 @@ html, body {
 <script type="text/javascript" src="js/elm.js"></script>
 <script type="text/javascript" src="js/elm-components.js"></script>
 <script type="text/javascript" src="js/card.js"></script>
+<script type="text/javascript" src="js/computers.js"></script>
 <script type="text/javascript" src="js/game.js"></script>
 <script type="text/javascript" src="js/upgrades.js"></script>
 <script type="text/javascript" src="memorylane.js"></script>

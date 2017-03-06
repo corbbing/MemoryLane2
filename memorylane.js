@@ -17,3 +17,7 @@ if (!GAME.preference){
 else {
 	$("header").hide();
 }
+
+$("#clickarea").click(function () {
+	GAME.generated += GAME.bpc;
+})

@@ -54,6 +54,10 @@ lm.Button.prototype.disable = function() {
 	this.element.disabled = true;
 };
 
+lm.Button.prototype.enable = function() {
+	this.element.disabled = false;
+};
+
 lm.RecordPopupMenu = function(target,records,key){
 	this.key = key;
 	lm.call(this,"","select","",target);

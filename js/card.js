@@ -33,7 +33,7 @@ function Card(obj,parent){
 	this.card_block = new lm.Div(this.card,"","card-block");
 	this.badge_tr_container = new lm.Div(this.card_block,"","badge-tr-container");
 	this.h4 = new lm("","h4","badge-tr-container",this.badge_tr_container);
-	this.badge = new lm(obj.count||0,"span","badge badge-default badge-tr",this.h4);
+	this.badge = new lm(obj.count||1,"span","badge badge-default badge-tr",this.h4);
 	this.title = new lm(obj.title||"","h4","card-title text-center",this.card_block);
 	this.info = new lm("","p","",this.card_block);
 	this.upgradeeffect = new lm("","p","",this.card_block);
@@ -46,8 +46,11 @@ function Card(obj,parent){
 	this.progress = new lm.Div(this.progress_bar,"","progress-bar bg-info");
 	this.buttons = new lm.Div(this.card_block,"","text-center");
 	var me = this;
-	this.upg_btn = new lm.Button(this.buttons,"UPGRADE",function () {
-		me.obj.download();
+	var type = obj.type;
+	this.upg_btn = new lm.Button(this.buttons,type=="update"? "UPDATE":"UPGRADE",function () {
+		if (me.obj.download()){
+			me.startDownload();
+		}
 	},"btn btn-primary");
 	this.sel_btn = new lm.Button(this.buttons,"SELL","","btn btn-primary waves-effect waves-light");
 	if (!obj.sellable){
@@ -69,14 +72,12 @@ Card.prototype.setCount = function() {
 	this.badge.setName(this.obj.count);
 };
 
-var c = new Card({
-	src:"img/laser.jpg",
-	count : 1,
-	title:"Mac OS 9.1",
-	sellable : false,
-},$("#upgrades")[0])
+Card.prototype.startDownload= function () {
+	this.upg_btn.disable();
+}
 
-
-
+Card.prototype.endDownload= function () {
+	this.upg_btn.enable();
+}
 
 
