@@ -1,0 +1,174 @@
+Add popovers for tutorial.
+
+
+Implement max-download speed, like 2mb/second until you can get the upgrade.
+
+
+
+Variable internet speed, slow change over time, perlin noise or something.
+
+
+
+
+Download software and hardware until you reach the max download speed, and it takes way too long to do anything, then sell everything, and do it again.
+
+
+Choose Mac or Windows when you start!
+
+Start with $1030
+
+
+
+
+Mac OSX,
+
+- built in virus protection, if you take a computer class for $12, 
+- lifespan ~8 years, 
+- 32 mb of storage
+
+Windows, 
+
+- You have to buy virus protection for $400, 
+- lifespan ~4 years
+- 64 mb of storage
+
+
+
+
+
+
+Mechanisms:
+------------------------
+
+Downloading upgrades makes your internet a bit slower, dividing the max speed between the number of downloads.
+
+You have 4 downloads and your max speed is 4mb/s, that would be 1mb per download.
+
+As time goes by and you upgrade software, it becomes harder to upgrade things, because the file size gets bigger, and doubles every year.
+
+
+As your computer gets older, it gets slower and slower.
+
+
+
+Software:
+
+Every month, new software updates comes out, and you can download it.
+
+Every year, new software upgrades come out, to the next version. The size of the upgrades doubles every year.
+
+
+1 month / day
+
+a base maximum of 5 mb/ per hour
+
+Research: 
+
+Research uses Electricity, if it's running. You can have a maximum of 3 research projects at a time. Each research has a chance to unlock new computer features, such as intel processors.
+
+In other words, by playing the game you're not only seeing the history, you're interacting with it.
+
+
+
+
+
+
+
+
+New Features:
+----------------------
+
+
+
+
+
+Software:
+
+Netscape, increases research speeds slightly (up to powerbook g4)
+
+Mac OS 9.2/Windows 2000 (start with a max either 216 kb/s or 300 kb/s)
+
+StackOverflow (requires Mac OSX Snow Leopard or Window) uses 
+
+Google Chrome, speeds up research slightly (requires powerbook g4 or later)
+
+AdBlock (requires)
+
+
+
+
+Hardware
+
+Computers: Macbook ($1000), Dell PC ($400)
+
+
+Dialup Connection 
+- $1/month
+- 
+
+Wi-fi (requires MacBook Pro or higher)
+
+Fans speeds up your computer slightly.
+
+
+Research:
+
+Illegal piracy, lets you download extra software (unlocks new software)
+
+Salvaging, lets you take old hardware
+
+Computer class 1, adds virus protection (you learn what a virus looks like)
+
+Computer class 2, lets you use 2 computers to download things.
+
+Cloud, lets you keep some software updates when you sell your computer
+
+
+Are you sure you want to sell your computer? All of your software will be lost.
+Are you sure you want to sell your computer? Most of your software will be lost. (if Cloud)
+
+You get a bit of money for every research project, but at the end, just enough to cover upgrading your computer.
+
+
+
+Scheduling:
+
+At every interval, new software updates come out, and you have the option to install them.
+
+
+
+Selling:
+
+
+
+
+
+
+
+
+Computer versions:
+
+
+1. Powerbook 100 -- IBM ThinkPad: 700C 
+	14,400bits/sec, (requires ethernet)
+2. IBM ThinkPad 701
+	--- USB requirement for software ---
+3. Powerbook G3, Pismo -- Gateway Solo 9100
+4. Toshiba Portege M100 
+5. MacBook Pro -- TouchSmart tx2 Notebook
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
