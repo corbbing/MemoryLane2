@@ -6,6 +6,8 @@ function Game () {
 		{name:"eWorld",count:0,amt:0},
 		{name:"MacOSX",count:0,amt:0}
 	];
+	this.tutorial = true;
+	this.tutorialID = 0;
 	this.updates = [{name:"macos9",count:0,amt:100}];
 	this.versions = {};
 	this.downloading = [];
@@ -23,12 +25,23 @@ function Game () {
 	this.money = 1030;
 	this.data = JSON.stringify(localStorage.memorylane2001) || "{}";
 	this.preference = "mac";
-	this.bps = 10000;
+	this.bps = 1000;
 	this.bpc = 1330;
 	this.lastTime = Date.now();
 	this.total = 0;
 	this.generated = 0;
 }
+
+Game.prototype.buy = function(amt) {
+	var me = this;
+	if (this.money >= amt){
+		this.money -= amt;
+		return true;
+	}
+	else {
+		return false;
+	}
+};
 
 Game.prototype.getBPS = function () {
 	var fromUpg = 0;
@@ -97,7 +110,7 @@ Draw the game
 	$("#total").html(filesize(this.total))
 	$("#speed").html(filesize(this.getBPS()) + "/sec")
 	$("#bpc").html(filesize(this.getBPC()) + "/click")
-
+	$("#money").html("$" + this.money);
 
 	this.generated = 0;
 };
@@ -131,8 +144,42 @@ Game.prototype.getCompressionRatio = function () {
 	return ratio + base64.complete + gzip.complete;
 }
 
+var tmp = '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>';
+
+var tutkeys = [
+	{
+		selector : "#clickarea",
+		content : "Click here to add some extra bytes.",
+		placement : "bottom",
+	},
+	{
+		selector : "#upgrades",
+		content : "Upgrade your software to go faster.",
+		placement : "bottom",
+	},
+	{
+		selector : "#computers",
+		content : "Buy computers when you have the money.",
+		placement : "bottom",
+	},
+]
+
+Game.prototype.nextTut = function() {
+	if (this.tutorialID >= tutkeys.length || !GAME.tutorial){
+		return 1;
+	}
+	var me = this;
+	$(tutkeys[this.tutorialID].selector).popover(tutkeys[this.tutorialID]).popover("show").focus().click(function () {
+		$(this).data("bs.popover").hide();
+		me.nextTut();
+	});
+	if (this.tutorialID < tutkeys.length){
+		this.tutorialID++;
+	}
+};
+
 
 // init Game
 
 var GAME = new Game();
-
+GAME.nextTut()

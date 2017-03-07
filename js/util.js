@@ -1,17 +1,6 @@
-function Research () {
-	this.name = "";
-	this.pay = 0; //compensation
-	this.time = 0;
-	this.maxTime = 0;
-	this.bundle = {
-		current : 0,
-		max : 139018301
-	}
-}
+var Util = {};
 
-
-
-Research.prototype.checkRequirements = function (reqs) {
+Util.checkRequirements = function (reqs) {
 	if (JSON.stringify(reqs) == "{}"){
 		return 1;
 	}
@@ -19,14 +8,15 @@ Research.prototype.checkRequirements = function (reqs) {
 	var total = 0;
 	for (key in reqs){
 		if (key in GAME.versions){
-			a.push(1);
 			if (GAME.versions[key] >= reqs[key]["min"]){ //Minimum is required.
 				if (reqs[key]["max"]){
 					if (GAME.versions[key] < reqs[key]["max"]){
+						a.push(1);
 						total++;
 					}
 				}
 				else {
+					a.push(1);
 					total++;
 				}
 			}
@@ -36,6 +26,6 @@ Research.prototype.checkRequirements = function (reqs) {
 }
 
 
-Research.prototype.start = function() {
-	// body...
-};
+Util.sizeForVersion= function  (v,sz) {
+	
+}

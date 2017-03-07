@@ -3,7 +3,7 @@ function Upgrade(name,conf){
 	this.title = name;
 	this.name = "";
 	this.count = 0;
-	this.sellable = true;
+	this.sellable = conf.sellable||true;
 	this.key = conf.key || "mult";
 	this.value = conf.value||0;
 	this.size = conf.size || 19710;
@@ -19,6 +19,7 @@ function Upgrade(name,conf){
 	this.requires = conf.requires || {};
 	this.type = conf.type || "upgrade";
 	this.card = new Card(this,$("#upgrades")[0]);
+	this.value = conf.value||100;
 }
 
 Upgrade.prototype.checkRequirements = function (reqs) {
@@ -29,15 +30,14 @@ Upgrade.prototype.checkRequirements = function (reqs) {
 	var total = 0;
 	for (key in reqs){
 		if (key in GAME.versions){
+			a.push(1);
 			if (GAME.versions[key] >= reqs[key]["min"]){ //Minimum is required.
 				if (reqs[key]["max"]){
 					if (GAME.versions[key] < reqs[key]["max"]){
-						a.push(1);
 						total++;
 					}
 				}
 				else {
-					a.push(1);
 					total++;
 				}
 			}
@@ -48,6 +48,12 @@ Upgrade.prototype.checkRequirements = function (reqs) {
 
 Upgrade.prototype.unfade = function () {
 	
+}
+
+Upgrade.prototype.timeRemaining = function () {
+	var delta_dl =  this.current-this.size;
+	var speed = GAME.getBPS() / GAME.downloading.length;
+	return moment(moment().seconds((delta_dl/speed)>>0 * 60)).toNow();
 }
 
 Upgrade.prototype.download = function() {
@@ -61,7 +67,7 @@ Upgrade.prototype.download = function() {
 
 Upgrade.prototype.getSize = function() {
 	// return Math.pow(this.size,1 + (this.version / 12)) * GAME.getCompressionRatio();
-	return Math.log(this.size) + Math.pow(this.size,1 + (this.version / 12)) * 1;
+	return Math.log(this.size) + Math.pow(this.size,1 + (this.version / 32)) * 1;
 };
 
 Upgrade.prototype.getPercent = function() {
@@ -69,6 +75,9 @@ Upgrade.prototype.getPercent = function() {
 };
 
 Upgrade.prototype.draw = function(delta_t) {
+	if (this.sellable == false){
+		this.card.sel_btn.disable();
+	}
 	if (this.checkRequirements(this.requires) == 1){
 		$(this.card.card.element).removeClass("faded")
 		$(this.card.title.element).html(this.title + " ver." + this.version);
@@ -80,6 +89,7 @@ Upgrade.prototype.draw = function(delta_t) {
 		this.card.upg_btn.disable();
 	}
 	if (this.getPercent() < 1 && this.downloading){
+		$(this.card.timeleft.element).html(this.timeRemaining());
 		var fromBPS = (GAME.getBPS() / GAME.downloading.length);
 		var fromGen = (GAME.generated / GAME.downloading.length);
 		var dled = (fromBPS * (delta_t/1000)) + fromGen;
@@ -88,6 +98,7 @@ Upgrade.prototype.draw = function(delta_t) {
 		this.card.setProgress(this.current / this.getSize(), this.current, this.getSize());
 	}
 	else if (this.getPercent() >= 1){
+		$(this.card.timeleft.element).html("&nbsp;");
 		this.card.endDownload();
 		this.count++;
 		this.card.setCount();
@@ -96,9 +107,14 @@ Upgrade.prototype.draw = function(delta_t) {
 		this.downloading = false;
 		this.card.setProgress(0, this.current, this.getSize());
 	}
+	this.card.BPC.setName("$" + this.value);
 };
 
-Upgrade.netscape = new Upgrade("netscape",{})
+Upgrade.netscape = new Upgrade("netscape",{
+	size: 40573 /10,
+	bonus : 1491/10,
+	sellable : false
+})
 Upgrade.AppleWorks = new Upgrade("AppleWorks",{
 	size: 405730 /10,
 	requires : {
@@ -111,8 +127,12 @@ Upgrade.AppleWorks = new Upgrade("AppleWorks",{
 Upgrade.macos9 = new Upgrade("macos9",{
 	size: 3453000 / 10,
 	type : "update",
+	sellable : false,
 	requires : {
 		netscape : {
+			min : 5
+		},
+		AppleWorks : {
 			min : 5
 		}
 	},

@@ -3,7 +3,7 @@ GAME.init();
 
 setInterval(function () {
 	GAME.draw();
-},100/3)
+},100/1)
 
 if (!GAME.preference){
 	$("section").hide();

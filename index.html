@@ -64,6 +64,9 @@ html, body {
 	</style>
 </head>
 <body>
+
+
+
 <header class="h-100">
 	<div class="container h-100">	
 		<div class="row h-100">
@@ -88,11 +91,16 @@ html, body {
 		</div>
 	</div>
 </header>
+
+
 <section id="alerts">
 	<div class="alert alert-success" role="alert">
 		<strong>Welcome back to Memory Lane! Your server has been using a daemon to download information when you were away! (1.66 gb)</strong>
 	</div>
 </section>
+
+
+
 <section class="bg-primary teal" id="clickarea">
 	<div class="container infoarea">
 			<div class="row text-center">
@@ -101,12 +109,44 @@ html, body {
 					<h1 class="text-huge" id="total">0.0 bytes</h1>
 					<h3 id="speed">0 bytes/sec</h3>
 					<h3 id="bpc">0 bytes/click</h3>
+					<h3 id="money">$0</h3>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-<section>
+
+
+
+
+
+
+
+
+<!-- MODAL -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="modal_title">
+  <div class="modal-dialog" role="document"  data-animation="false" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body" id="modal_message">
+        Are you sure you want to buy this for $1999.99?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+        <button id="modal_confirm" type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- <section>
 	<div class="container">
 		<div class="row">
 			<ul id="downloads" class="list-inline p-3" >
@@ -145,7 +185,7 @@ html, body {
 			</ul>
 		</div>
 	</div>
-</section>
+</section> -->
 
 <section class="grey lighten-2">
 	<div class="container">
@@ -157,14 +197,64 @@ html, body {
 	</div>
 </section>
 
-<section class="">
+<section>
 	<div class="container">
 		<div class="row">
-			<ul id="computers" class="list-inline">
+			<ul id="computers" class="list-inline p-3">
+			</ul>
+		</div>
+	</div>
+</section>
+
+
+
+
+
+
+
+<section>
+	<div class="container">
+		<div class="row">
+			<ul id="computers" class="list-inline p-3">
 				<li class="list-inline-item">
 					<div class="card">
-						<div class="p-2">
-							<h4>PowerBook G4</h4>
+						<div class="p-3">
+							<h4>DSL</h4>
+							<ul>
+								<li>Speed: 100kbps</li>
+								<li>Sell Price: $19.99</li>
+							</ul>
+							<div class="text-center">
+								<button class="btn btn-primary">Sell</button>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="list-inline-item">
+					<div class="card">
+						<div class="p-3">
+							<h4>Cable Modem</h4>
+							<ul>
+								<li>Speed: 1000kbps</li>
+								<li>Buy Price: $1999.99</li>
+							</ul>
+							<div class="text-center">
+								<button class="btn btn-success">Buy</button>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="list-inline-item">
+					<div class="card faded">
+						<div class="p-3">
+							<h4>????</h4>
+							<ul>
+								<li>Speed: ????</li>
+								<li>Buy Price: ????</li>
+							</ul>
+							<div class="text-center">
+								<button class="btn btn-success">Buy</button>
+							</div>
 						</div>
 					</div>
 				</li>
@@ -226,6 +316,8 @@ html, body {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
+<script type="text/javascript" src="js/moment.js"></script>
+<script type="text/javascript" src="js/messages.js"></script>
 <script type="text/javascript" src="js/elm.js"></script>
 <script type="text/javascript" src="js/elm-components.js"></script>
 <script type="text/javascript" src="js/card.js"></script>

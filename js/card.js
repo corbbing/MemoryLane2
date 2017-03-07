@@ -43,6 +43,8 @@ function Card(obj,parent){
 	this.BPS = new lm("+"+filesize(obj.bonus)+"/sec"||"BPS","span","",this.upgradeeffect);
 	new lm.Br(this.upgradeeffect);
 	this.BPC = new lm(obj.bpc||"BPC","span","",this.upgradeeffect);
+	new lm.Br(this.upgradeeffect);
+	this.timeleft = new lm("&nbsp;","span","",this.upgradeeffect);
 	this.progress_bar = new lm.Div(this.card_block,"","progress");
 	this.progress = new lm.Div(this.progress_bar,"","progress-bar bg-info");
 	this.buttons = new lm.Div(this.card_block,"","text-center");
@@ -53,8 +55,8 @@ function Card(obj,parent){
 			me.startDownload();
 		}
 	},"btn btn-primary");
-	this.sel_btn = new lm.Button(this.buttons,"SELL","","btn btn-primary waves-effect waves-light");
-	if (!obj.sellable){
+	this.sel_btn = new lm.Button(this.buttons,"SELL","","btn btn-primary");
+	if (obj.sellable == false){
 		this.sel_btn.disable();
 	}
 }
@@ -80,5 +82,49 @@ Card.prototype.startDownload= function () {
 Card.prototype.endDownload= function () {
 	this.upg_btn.enable();
 }
+
+
+
+
+/*
+
+
+li.list-inline-item
+	div.card
+		div.p-3
+			h4 = Name
+			ul
+				li SPEED
+				li STORAGE
+				li PRICE
+			div.text-center
+				button.btn.btn-primary.btn-lg
+					(data-toggle="modal" data-target="#myModal")*/
+
+
+
+function ComputerCard(conf){
+	this.conf = conf;
+	this.container = new lm("","li","list-inline-item",$("#computers")[0]);
+	this.card = new lm("","div","card",this.container);
+	this.padding = new lm("","div","p-3",this.card);
+	this.title = new lm(conf.name||"","h4","",this.padding);
+	this.inf = new lm("","ul","",this.padding);
+	this.speed = new lm(conf.speed||"","li","",this.inf);
+	this.storage = new lm(conf.storage||"","li","",this.inf);
+	this.price = new lm(conf.price||"","li","",this.inf);
+	this.btn_cont = new lm("","div","text-center",this.inf);
+	this.btn = new lm("Buy/sell","button","btn btn-primary btn-lg",this.inf);
+	$(this.btn.element).click(function  (argument) {
+		conf.buysell();
+	})
+}
+
+
+
+
+
+
+
 
 
