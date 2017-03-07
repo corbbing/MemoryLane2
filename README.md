@@ -1,24 +1,30 @@
 #MemoryLane
 
+####Have you ever wondered about the roots of all software?
+
+####Have you ever asked yourself, what must it have been like using a computer in the 1990s?
+
+###Go no further.
+
 Explore the history of the internet with this clicker/simulation game. Start off in the 1990s with only a laptop and your mind, and see how far you can go before you need a new computer!
 
-To play:
+#To play:
 
 Download and upgrade your software to increase your download speeds. Buy new computers when they software reaches its limits.
 
-#Current Features:
+##Current Features:
 
 - Download software
 - Click the living daylights out of the screen.
 - Make approximately $200.
 
-#Implemented, but unavailable
+##Implemented, but unavailable
 
 - Modems
 - Computers more recent than Powerbook 100
 - Max disk usage
 
-#Planned, but not implemented
+##Planned, but not implemented
 
 - Computer viruses
 - Software sales
@@ -30,7 +36,7 @@ Download and upgrade your software to increase your download speeds. Buy new com
 - Choice between Microsoft and Apple before playing
 - Save data (MemoryLane1 had lz-string)
 
-##What's changed since Version 1 (if you played ML1)
+#What's changed since Version 1 (if you played ML1)
 
 ###Added Bootstrap 4
 
@@ -56,7 +62,9 @@ Sell things to buy new things. Do research, sell software, sell hardware. What y
 
 ###A purpose
 
-MemoryLane is not about downloading stuff to unlock new stuff to download. It's so much more! It's about history, it's about exploring the dark ages of the internet, it's about learning your roots, and most of all, it's about knowing your limits, and breaking through them!
+MemoryLane is no longer about downloading stuff, so you can unlock new stuff to download. It's become so much more! 
+
+It's about history, it's about exploring the dark ages of the internet, it's about learning your roots, and most of all, it's about knowing your limits, and breaking through them!
 
 
 
