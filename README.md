@@ -10,7 +10,10 @@ Explore the history of the internet with this clicker/simulation game. Start off
 
 #To play:
 
+[Go here](https://corbbing.github.io/MemoryLane2/)
+
 Download and upgrade your software to increase your download speeds. Buy new computers when they software reaches its limits.
+
 
 ##Current Features:
 
