@@ -123,11 +123,15 @@ Computer class 2, lets you use 2 computers to download things.
 
 Cloud, lets you keep some software updates when you sell your computer
 
+Thwart Illegal Piracy - IBM pays you some money, 2007
+
+
 
 Are you sure you want to sell your computer? All of your software will be lost.
 Are you sure you want to sell your computer? Most of your software will be lost. (if Cloud)
 
 You get a bit of money for every research project, but at the end, just enough to cover upgrading your computer.
+
 
 
 

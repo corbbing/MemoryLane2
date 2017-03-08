@@ -51,7 +51,7 @@ Upgrade.prototype.unfade = function () {
 }
 
 Upgrade.prototype.timeRemaining = function () {
-	var delta_dl =  this.current-this.size;
+	var delta_dl =  this.current-this.getSize();
 	var speed = GAME.getBPS() / GAME.downloading.length;
 	return moment(moment().seconds((delta_dl/speed)>>0 * 60)).toNow();
 }
@@ -111,21 +111,21 @@ Upgrade.prototype.draw = function(delta_t) {
 };
 
 Upgrade.netscape = new Upgrade("netscape",{
-	size: 40573 /10,
-	bonus : 1491/10,
+	size: 1340573 ,
+	bonus : 1491,
 	sellable : false
 })
 Upgrade.AppleWorks = new Upgrade("AppleWorks",{
-	size: 405730 /10,
+	size: 405730 ,
 	requires : {
 		netscape : {
 			min : 1
 		}
 	},
-	bonus : 14914/10,
+	bonus : 14914,
 });
 Upgrade.macos9 = new Upgrade("macos9",{
-	size: 3453000 / 10,
+	size: 3453000 ,
 	type : "update",
 	sellable : false,
 	requires : {
@@ -136,32 +136,32 @@ Upgrade.macos9 = new Upgrade("macos9",{
 			min : 5
 		}
 	},
-	bonus : 140914/10,
+	bonus : 140914,
 })
 Upgrade.Lotus = new Upgrade("Lotus",{
-	size: 619410421 /10 ,
+	size: 619410421 ,
 	requires : {
 		AppleWorks : {
 			min : 3
 		}
 	},
-	bonus : 1666450/10,
+	bonus : 1666450,
 })
 Upgrade.eWorld = new Upgrade("eWorld",{
-	size: 5739104133 / 10,
+	size: 5739104133,
 	requires : {
 		Lotus : {
 			min : 3
 		}
 	},
-	bonus : 17230014/10,
+	bonus : 17230014,
 })
 Upgrade.MacOSX = new Upgrade("MacOSX",{
-	size: 43781941304 / 10,
+	size: 43781941304,
 	requires : {
 		macos9 : {
 			min : 10
 		}
 	},
-	bonus : 17230014,
+	bonus : 452300140,
 })

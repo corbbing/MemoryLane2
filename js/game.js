@@ -4,11 +4,12 @@ function Game () {
 		{name:"AppleWorks",count:0,amt:0},
 		{name:"Lotus",count:0,amt:0},
 		{name:"eWorld",count:0,amt:0},
-		{name:"MacOSX",count:0,amt:0}
+		{name:"MacOSX",count:0,amt:0},
+		{name:"macos9",count:0,amt:100}
 	];
-	this.tutorial = true;
+	this.tutorial = false;
 	this.tutorialID = 0;
-	this.updates = [{name:"macos9",count:0,amt:100}];
+	this.updates = [];
 	this.versions = {};
 	this.downloading = [];
 	this.computer = Computer.PowerBook100;
@@ -30,7 +31,45 @@ function Game () {
 	this.lastTime = Date.now();
 	this.total = 0;
 	this.generated = 0;
+	this.researchwrappers = {
+		p1 : null,
+		p2 : null,
+		p3 : null
+	}
+	this.researched = [];
+	this.researching = [];
+	this.stats = {
+		mult : 1,
+		compression : 1,
+		power : 1,
+		storage : 1
+	}
 }
+
+Game.prototype.stopResearch = function(itm) {
+	if (this.researching.indexOf(itm) >= 0){
+		this.researching.splice(this.researching.indexOf(itm),1);
+	}
+	else {
+		console.error("There is no item");
+	}
+};
+
+Game.prototype.startResearch = function(itm) {
+	this.researching.push(itm);
+};
+
+Game.prototype.getStats = function() {
+	this.stats = {
+		mult : 1,
+		compression : 1,
+		power : 1,
+		storage : 1
+	}
+	for (var i = 0; i < this.researched.length; i++) {
+		this.stats[this.researched[i].key] += this.researched[i].value;
+	};
+};
 
 Game.prototype.buy = function(amt) {
 	var me = this;
@@ -44,6 +83,7 @@ Game.prototype.buy = function(amt) {
 };
 
 Game.prototype.getBPS = function () {
+	this.getStats()
 	var fromUpg = 0;
 	for (var i = 0; i < this.upgrades.length; i++) {
 		fromUpg += this.upgrades[i].bonus * this.upgrades[i].count;
@@ -52,7 +92,7 @@ Game.prototype.getBPS = function () {
 	for (var i = 0; i < this.updates.length; i++) {
 		fromUpd += this.updates[i].bonus * this.updates[i].count;
 	};
-	return Math.min(this.bps + fromUpg + fromUpd,this.computer.getSpeed()) * 1;
+	return Math.min(this.bps + fromUpg + fromUpd,this.computer?this.computer.getSpeed():0) * this.stats.mult;
 }
 
 Game.prototype.getBPC = function () {
@@ -94,10 +134,11 @@ Draw the game
 			this.downloading.push(this.updates[i]);
 		}
 	};
-
-
 	var now = Date.now();
 	var delta = now - this.lastTime;
+	for (name in this.researchwrappers){
+		this.researchwrappers[name].draw(delta);
+	}
 	for (var i = 0; i < this.upgrades.length; i++) {
 		// console.log("sad")
 		this.upgrades[i].draw(delta);
@@ -107,7 +148,7 @@ Draw the game
 		this.updates[i].draw(delta);
 	};
 	this.lastTime = now;
-	$("#total").html(filesize(this.total))
+	$("#total").html(filesize(this.total) + "/" + filesize(this.getStorage()));
 	$("#speed").html(filesize(this.getBPS()) + "/sec")
 	$("#bpc").html(filesize(this.getBPC()) + "/click")
 	$("#money").html("$" + this.money);
@@ -130,10 +171,14 @@ Game.prototype.init = function() {
 		}2
 		this.updates[i] = upg;
 	};
+	for (name in this.researchwrappers){
+		this.researchwrappers[name] = new ResearchWrapper({selector:name,item:null});
+	}
 };
 
-Game.prototype.start = function() {
-	
+Game.prototype.getStorage = function() {
+	this.getStats();
+	return this.computer.space * this.stats.storage;
 };
 
 Game.prototype.getCompressionRatio = function () {
