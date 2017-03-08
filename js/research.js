@@ -124,7 +124,7 @@ ResearchWrapper.prototype.draw = function (delta) {
 		$("#"+this.selector + "_prog").show();
 		$("#"+this.selector + "_name").html(this.item.name);
 		$("#"+this.selector + "_time").html("Takes about " + moment.duration(this.item.time).humanize());
-		$("#"+this.selector + "_remaining").html("Ready "+moment().to(Date.now() + this.item.time));
+		$("#"+this.selector + "_remaining").html("Ready "+moment().to(this.item.time-this.time));
 		$("#"+this.selector + "_progressbar")[0].style.width = ((this.time / this.item.time) * 100)+"%"
 		$("#"+this.selector + "_desc").html(this.item.description || "");
 		var me = this;
