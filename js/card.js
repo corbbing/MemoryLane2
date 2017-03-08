@@ -34,7 +34,7 @@ function Card(obj,parent){
 	this.card_block = new lm.Div(this.card,"","card-block");
 	this.badge_tr_container = new lm.Div(this.card_block,"","badge-tr-container");
 	this.h4 = new lm("","h4","badge-tr-container",this.badge_tr_container);
-	this.badge = new lm(obj.count||1,"span","badge badge-default badge-tr",this.h4);
+	this.badge = new lm(obj.count||0,"span","badge badge-default badge-tr",this.h4);
 	this.title = new lm(obj.title||"","h4","card-title text-center",this.card_block);
 	this.info = new lm("","p","",this.card_block);
 	this.upgradeeffect = new lm("","p","",this.card_block);

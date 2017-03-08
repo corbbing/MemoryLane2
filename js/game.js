@@ -1,13 +1,14 @@
 function Game () {
 	this.upgrades = [
-		{name:"netscape",count:1,amt:0},
+		{name:"MacOS8",count:0,amt:100},
+		{name:"netscape",count:0,amt:0},
 		{name:"AppleWorks",count:0,amt:0},
 		{name:"Lotus",count:0,amt:0},
 		{name:"eWorld",count:0,amt:0},
 		{name:"MacOSX",count:0,amt:0},
 		{name:"macos9",count:0,amt:100}
 	];
-	this.tutorial = false;
+	this.tutorial = true;
 	this.tutorialID = 0;
 	this.updates = [];
 	this.versions = {};
@@ -26,8 +27,8 @@ function Game () {
 	this.money = 1030;
 	this.data = JSON.stringify(localStorage.memorylane2001) || "{}";
 	this.preference = "mac";
-	this.bps = 1000;
-	this.bpc = 1330;
+	this.bps = 28800;
+	this.bpc = 5330;
 	this.lastTime = Date.now();
 	this.total = 0;
 	this.generated = 0;

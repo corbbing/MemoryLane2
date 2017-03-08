@@ -23,6 +23,9 @@ function Upgrade(name,conf){
 }
 
 Upgrade.prototype.checkRequirements = function (reqs) {
+	if (this.getSize() + GAME.total > GAME.getStorage()){
+		return 0;
+	}
 	if (JSON.stringify(reqs) == "{}"){
 		return 1;
 	}
@@ -89,7 +92,7 @@ Upgrade.prototype.draw = function(delta_t) {
 		this.card.upg_btn.disable();
 	}
 	if (this.getPercent() < 1 && this.downloading){
-		$(this.card.timeleft.element).html(this.timeRemaining());
+		$(this.card.timeleft.element).html("Ready "+this.timeRemaining());
 		var fromBPS = (GAME.getBPS() / GAME.downloading.length);
 		var fromGen = (GAME.generated / GAME.downloading.length);
 		var dled = (fromBPS * (delta_t/1000)) + fromGen;
@@ -110,11 +113,21 @@ Upgrade.prototype.draw = function(delta_t) {
 	this.card.BPC.setName("$" + this.value);
 };
 
-Upgrade.netscape = new Upgrade("netscape",{
-	size: 1340573 ,
+Upgrade["MacOS8"] = new Upgrade("MacOS8",{
+	size: 140573 ,
 	bonus : 1491,
 	sellable : false
-})
+});
+Upgrade.netscape = new Upgrade("netscape",{
+	size: 1340573 ,
+	bonus : 13491,
+	sellable : false,
+	requires : {
+		"MacOS8" : {
+			min : 2
+		}
+	}
+});
 Upgrade.AppleWorks = new Upgrade("AppleWorks",{
 	size: 405730 ,
 	requires : {
@@ -122,7 +135,7 @@ Upgrade.AppleWorks = new Upgrade("AppleWorks",{
 			min : 1
 		}
 	},
-	bonus : 14914,
+	bonus : 31014,
 });
 Upgrade.macos9 = new Upgrade("macos9",{
 	size: 3453000 ,

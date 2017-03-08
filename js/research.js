@@ -1,49 +1,3 @@
-// function Research () {
-// 	this.name = "";
-// 	this.pay = 0; //compensation
-// 	this.time = 0;
-// 	this.maxTime = 0;
-// 	this.bundle = {
-// 		current : 0,
-// 		max : 139018301
-// 	}
-// }
-
-// Research.prototype.update = function(delta) {
-	
-// };
-
-// Research.prototype.checkRequirements = function (reqs) {
-// 	if (JSON.stringify(reqs) == "{}"){
-// 		return 1;
-// 	}
-// 	var a = [];
-// 	var total = 0;
-// 	for (key in reqs){
-// 		if (key in GAME.versions){
-// 			a.push(1);
-// 			if (GAME.versions[key] >= reqs[key]["min"]){ //Minimum is required.
-// 				if (reqs[key]["max"]){
-// 					if (GAME.versions[key] < reqs[key]["max"]){
-// 						total++;
-// 					}
-// 				}
-// 				else {
-// 					total++;
-// 				}
-// 			}
-// 		}
-// 	}
-// 	return (a.length == total && total != 0);
-// }
-
-
-// Research.prototype.start = function() {
-
-// };
-
-
-
 var RESEARCH = {};
 
 var RESEARCH_LIST = [];
@@ -64,7 +18,7 @@ function ResearchItem(conf){
 	this.key = conf.key || "mult";
 	this.value = conf.value||1;
 	this.description = conf.description || "";
-	this.time = conf.time||3000;
+	this.time = conf.time||300000;
 	this.compensation = conf.compensation || 100;
 	RESEARCH_LIST.push(this);
 	RESEARCH[this.name]=this;
@@ -72,31 +26,52 @@ function ResearchItem(conf){
 
 new ResearchItem({
 	name:"Intel 486",
-	value : 2,
+	description: "Literally triples* your internet speed. *(actually increases it just a tiny bit. But hey! It makes a difference!)",
+	value : 0.5,
 });
 
 new ResearchItem({
 	name:"i80 LaunchForce HardDrive",
 	key : "storage",
 	description : "The i80 LaunchForce HardDrive lets you store an incredible amount of things in a tiny little box. <br> +$1000.00",
-	value : 2,
-	time: 4700000,
+	value : 1,
+	time: 1200000,
 	compensation : 1000
 });
 
 new ResearchItem({
 	name:"GZip",
 	key:"storage",
+	time: 120000,
+	compensation: 15,
 	description : "\"I need you to take on this project. I'll pay you in full. I need it now. Now, I said, now!\"",
-	value : 0.75,
+	value : 0.1,
 });
 
 new ResearchItem({
 	name:"Duh Fing Compaktuh",
 	description : "Welcome to Duh Fing Compaktuh. All be setting up all of your items, so you, can start playing. You'll have fun. <br> ~~Message complete~~",
 	key : "mult",
-	value : 1,
+	value : 0.12,
 	time: 47000,
+	compensation : 100
+});
+
+new ResearchItem({
+	name:"High Powered Modems",
+	description : "These modems boast almost 60kbps! The fastest you'll ever find!",
+	key : "mult",
+	value : 1,
+	time: 3600000,
+	compensation : 3
+});
+
+new ResearchItem({
+	name:"Second Landline",
+	description : "What's better than searching the internet? Searching the internet without someone needing to make a phone call in the middle of a great article!",
+	key : "mult",
+	value : 1,
+	time: 3600000,
 	compensation : 1000
 });
 
@@ -112,7 +87,8 @@ function ResearchWrapper(conf){
 	var me = this;
 	$("#"+this.selector+"_startbtn").click(function () {
 		var Test = new ModalList(getResearchList(),{
-			custom_message : "No research options available. Try again in a couple."
+			custom_message : "No research options available. Try again in a couple.",
+			title : "Choose a project:"
 		});
 		Test.show(function (arg) {
 			me.item = RESEARCH[arg];

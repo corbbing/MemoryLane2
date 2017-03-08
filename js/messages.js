@@ -24,7 +24,7 @@ ModalMessage.prototype.show = function(confirm_fn) {
 
 function ModalList(options,conf){
 	ModalMessage.call(this,conf?conf.title||"Choose":"Choose","","#modal_message","#modal_title");
-	this.options = options||["Asamae","Baoela","Toanel"];
+	this.options = options||[];
 	this.container = new lm.Div($("#modal_message")[0],"","list-group");
 	this.choice = null;
 	this.custom_message = "Nothing to choose from";
