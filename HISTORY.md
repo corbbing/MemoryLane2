@@ -64,6 +64,7 @@ Day 3:
 Fixed downloads from the future. Upgrades showing "2 minutes ago..."
 
 
+TODO:
 
 - Implement more computers, research and set up the schedule.
 
@@ -75,13 +76,42 @@ Implement the "Windows" side of the game.
 
 - Work on the upgrade size and speeds
 
-- Research should unlock after downloading macos9 or equivalent
+Research should unlock after downloading macos9 or equivalent
 
 - Add time remaining.
 
 Add priority for downloads.
 
+- Add phone calls that interupt dial-up
 
+Add saves
+
+Day 4:
+
+Fixed a lot of things, added research, removed computers for the moment, added money (not usable yet)
+
+Added MacOS8
+
+
+Implement more computers, research and set up the schedule.
+
+- Think of a way you can make money through research.
+
+Set up events, such as new discoveries and tech breakthroughs.
+
+Implement the "Windows" side of the game.
+
+- Work on the upgrade size and speeds
+
+Research should unlock after downloading macos9 or equivalent
+
+- Add time remaining.
+
+Add priority for downloads.
+
+- Add phone calls that interupt dial-up
+
+Add saves
 
 
 

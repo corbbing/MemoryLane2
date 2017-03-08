@@ -34,7 +34,7 @@ new ResearchItem({
 	name:"i80 LaunchForce HardDrive",
 	key : "storage",
 	description : "The i80 LaunchForce HardDrive lets you store an incredible amount of things in a tiny little box. <br> +$1000.00",
-	value : 1,
+	value : 4,
 	time: 1200000,
 	compensation : 1000
 });
@@ -51,7 +51,7 @@ new ResearchItem({
 new ResearchItem({
 	name:"Duh Fing Compaktuh",
 	description : "Welcome to Duh Fing Compaktuh. All be setting up all of your items, so you, can start playing. You'll have fun. <br> ~~Message complete~~",
-	key : "mult",
+	key : "storage",
 	value : 0.12,
 	time: 47000,
 	compensation : 100
@@ -68,6 +68,15 @@ new ResearchItem({
 
 new ResearchItem({
 	name:"Second Landline",
+	description : "What's better than searching the internet? Searching the internet without someone needing to make a phone call in the middle of a great article!",
+	key : "mult",
+	value : 1,
+	time: 3600000,
+	compensation : 1000
+});
+
+new ResearchItem({
+	name:"Online Piracy",
 	description : "What's better than searching the internet? Searching the internet without someone needing to make a phone call in the middle of a great article!",
 	key : "mult",
 	value : 1,
@@ -117,6 +126,12 @@ ResearchWrapper.prototype.reset = function() {
 };
 
 ResearchWrapper.prototype.draw = function (delta) {
+	if (GAME.versions["macos9"] <= 0){
+		$("#research").hide();
+	}
+	else {
+		$("#research").show();
+	}
 	if (this.started && this.item){
 		this.time += delta;
 

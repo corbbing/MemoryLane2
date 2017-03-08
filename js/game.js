@@ -47,6 +47,14 @@ function Game () {
 	}
 }
 
+Game.prototype.getTotal = function() {
+	var total = 0;
+	for (var i = 0; i < this.upgrades.length; i++) {
+		total += this.upgrades[i].count > 0 ? this.upgrades[i].getSize(1) : 0;
+	};
+	return total;
+};
+
 Game.prototype.stopResearch = function(itm) {
 	if (this.researching.indexOf(itm) >= 0){
 		this.researching.splice(this.researching.indexOf(itm),1);
@@ -149,7 +157,7 @@ Draw the game
 		this.updates[i].draw(delta);
 	};
 	this.lastTime = now;
-	$("#total").html(filesize(this.total) + "/" + filesize(this.getStorage()));
+	$("#total").html(filesize(this.getTotal()) + "/" + filesize(this.getStorage()));
 	$("#speed").html(filesize(this.getBPS()) + "/sec")
 	$("#bpc").html(filesize(this.getBPC()) + "/click")
 	$("#money").html("$" + this.money);

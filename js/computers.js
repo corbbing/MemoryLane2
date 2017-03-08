@@ -28,30 +28,30 @@ function Computer(conf){
 }
 
 Computer.prototype.buysell = function () {
-	// var me = this;
-	// if (this.bought){
-	// 	var msg = new ModalMessage("Are you sure?","Are you sure you want to sell this computer?","#modal_message","#modal_title")
-	// 	msg.show(function(){
-	// 		me.bought = false;
-	// 		$(me.card.price.element).html("Buy price: $" + me.buy_price);
-	// 		$(me.card.btn.element).addClass("btn-success");
-	// 		$(me.card.btn.element).removeClass("btn-primary");
-	// 		$(me.card.btn.element).html("buy");
-	// 		GAME.money += me.sell_price
-	// 	})
-	// }
-	// else {
-	// 	var msg = new ModalMessage("Are you sure?","Are you sure you want to buy this computer?","#modal_message","#modal_title")
-	// 	msg.show(function(){
-	// 		if (GAME.buy(me.buy_price) == true){
-	// 			me.bought = true;
-	// 			$(me.card.price.element).html("Sell price: $" + me.sell_price);
-	// 			$(me.card.btn.element).removeClass("btn-success");
-	// 			$(me.card.btn.element).addClass("btn-primary");
-	// 			$(me.card.btn.element).html("sell");
-	// 		}
-	// 	})
-	// }
+	var me = this;
+	if (this.bought){
+		var msg = new ModalMessage("Are you sure?","Are you sure you want to sell this computer?","#modal_message","#modal_title")
+		msg.show(function(){
+			me.bought = false;
+			$(me.card.price.element).html("Buy price: $" + me.buy_price);
+			$(me.card.btn.element).addClass("btn-success");
+			$(me.card.btn.element).removeClass("btn-primary");
+			$(me.card.btn.element).html("buy");
+			GAME.money += me.sell_price
+		})
+	}
+	else {
+		var msg = new ModalMessage("Are you sure?","Are you sure you want to buy this computer?","#modal_message","#modal_title")
+		msg.show(function(){
+			if (GAME.buy(me.buy_price) == true){
+				me.bought = true;
+				$(me.card.price.element).html("Sell price: $" + me.sell_price);
+				$(me.card.btn.element).removeClass("btn-success");
+				$(me.card.btn.element).addClass("btn-primary");
+				$(me.card.btn.element).html("sell");
+			}
+		})
+	}
 }
 
 Computer.prototype.getSpeed = function() {
@@ -64,6 +64,11 @@ Computer.prototype.getSpeed = function() {
 
 Computer.PowerBook100 = new Computer({
 	name : "PowerBook100",
+	speed : 1525244
+})
+
+Computer.PowerBookG4 = new Computer({
+	name : "PowerBookG4",
 	speed : 1525244
 })
 

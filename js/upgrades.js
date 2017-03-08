@@ -23,7 +23,7 @@ function Upgrade(name,conf){
 }
 
 Upgrade.prototype.checkRequirements = function (reqs) {
-	if (this.getSize() + GAME.total > GAME.getStorage()){
+	if (this.getSize() + GAME.getTotal() > GAME.getStorage()){
 		return 0;
 	}
 	if (JSON.stringify(reqs) == "{}"){
@@ -68,9 +68,9 @@ Upgrade.prototype.download = function() {
 	return false;
 };
 
-Upgrade.prototype.getSize = function() {
+Upgrade.prototype.getSize = function(arg) {
 	// return Math.pow(this.size,1 + (this.version / 12)) * GAME.getCompressionRatio();
-	return Math.log(this.size) + Math.pow(this.size,1 + (this.version / 32)) * 1;
+	return Math.log(this.size) + Math.pow(this.size,1 + ((this.version + (arg || 0)) / 32)) * 1;
 };
 
 Upgrade.prototype.getPercent = function() {
@@ -119,7 +119,7 @@ Upgrade["MacOS8"] = new Upgrade("MacOS8",{
 	sellable : false
 });
 Upgrade.netscape = new Upgrade("netscape",{
-	size: 1340573 ,
+	size: 1403573 ,
 	bonus : 13491,
 	sellable : false,
 	requires : {
