@@ -2,7 +2,7 @@
 <head>
 	<title>Take a trip down Memory Lane</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/css/mdb.min.css">
 	<style type="text/css">
 
@@ -74,6 +74,34 @@ small>p {
 	margin: 0px;
 }
 
+.sb {
+	width: auto;
+	float: left;
+	height: 100%;
+}
+
+.sb-content {
+	float: left;
+}
+
+.sb-icon {
+	
+	float: left;
+}
+
+.sb-text {
+	float: right;
+}
+
+.sb-item {
+	height: 45px;
+	padding: 6px;
+}
+
+.shadowed {
+	box-shadow: 10px 10px #000;
+}
+
 	</style>
 </head>
 <body>
@@ -105,16 +133,7 @@ small>p {
 	</div>
 </header>
 
-
-<section id="alerts">
-	<div class="alert alert-success" role="alert">
-		<strong>Welcome back to Memory Lane! Your server has been using a daemon to download information when you were away! (1.66 gb)</strong>
-	</div>
-</section>
-
-
-
-<section class="bg-primary teal" id="clickarea">
+<section class="game bg-primary teal" id="clickarea">
 	<div class="container infoarea">
 			<div class="row text-center">
 				<div class="mx-auto noselect">
@@ -134,7 +153,7 @@ small>p {
 
 <!-- RESEARCH -->
 
-<section>
+<section class="game">
 	<div class="container">
 		<div class="row" id="research">
 			<div class="col-md-4 vcenter" id="p1">
@@ -150,6 +169,8 @@ small>p {
 						<p id="p1_time">4 minutes</p>
 						<i id="p1_desc">+1.3 MB/sec</i>
 						<p id="p1_remaining">Ready in 4 minutes</p>
+						Unlocks: <span id="p1_badge" class="badge badge-default">Default</span>
+
 						</small>
 						<div class="progress">
 							<div class="progress-bar blue" style="width:1%;height:3px;" id="p1_progressbar"></div>
@@ -171,6 +192,7 @@ small>p {
 						<p id="p2_time">4 minutes</p>
 						<i id="p2_desc">+1.3 MB/sec</i>
 						<p id="p2_remaining">Ready in 4 minutes</p>
+						Unlocks: <span id="p2_badge" class="badge badge-default">Default</span>
 						</small>
 						<div class="progress">
 							<div class="progress-bar blue" style="width:1%;height:3px;" id="p2_progressbar"></div>
@@ -192,6 +214,7 @@ small>p {
 						<p id="p3_time">4 minutes</p>
 						<i id="p3_desc">+1.3 MB/sec</i>
 						<p id="p3_remaining">Ready in 4 minutes</p>
+						Unlocks: <span id="p3_badge" class="badge badge-default">Default</span>
 						</small>
 						<div class="progress">
 							<div class="progress-bar blue" style="width:1%;height:3px;" id="p3_progressbar"></div>
@@ -228,7 +251,7 @@ small>p {
   </div>
 </div>
 
-<section class="grey lighten-2">
+<section class="game grey lighten-2">
 	<div class="container">
 		<div class="row">
 			<ul id="upgrades" class="list-inline">
@@ -238,7 +261,13 @@ small>p {
 	</div>
 </section>
 
-<section>
+<section class="game">
+	<div class="container text-center p-3">
+		<button class="btn btn-success" id="shop_open">Shop</button>
+	</div>
+</section>
+
+<section class="game">
 	<div class="container">
 		<div class="row">
 			<ul id="computers" class="list-inline p-3">
@@ -252,8 +281,8 @@ small>p {
 
 
 
-
-<section>
+<!-- 
+<section class="game">
 	<div class="container">
 		<div class="row">
 			<ul id="computers" class="list-inline p-3">
@@ -302,9 +331,9 @@ small>p {
 			</ul>
 		</div>
 	</div>
-</section>
+</section> -->
 
-<section>
+<section class="game">
 	<div class="container">
 		<div class="row m-3">
 			<h1>Specs:</h1>
@@ -350,6 +379,73 @@ small>p {
 </section>
 
 
+<section class="shop teal text-white">
+	<div class="container-fluid">
+		<div class="row py-4">
+			<div class="col-md-4 py-2">
+				<h1>Memory Lane</h1>
+			</div>
+			<div class="col-md-4 text-center py-2">
+				<h1>$1030.10</h1>
+			</div>
+			<div class="col-md-4 text-right">
+				<div>Storage:  40.3 MB</div>
+				<div>Speed: 170KB/s</div>
+				<div>Power: 10KB/click</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="shop">
+	<div class="container-fluid">
+		<div class="text-center">
+			<button class="btn btn-success" id="shop_close">Play</button>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="p-3">
+					<h3>Categories</h3>
+					<ul class="cats list-group">
+						<li class="list-group-item justify-content-between active" data-category="computers">
+							<h6 class="m-1">All</h6>
+						    <span class="badge badge-default badge-pill">9</span>
+						</li>
+						<li class="list-group-item justify-content-between" data-category="computers">
+							<h6 class="m-1">Computers</h6>
+						    <span class="badge badge-default badge-pill">5</span>
+						</li>
+						<li class="list-group-item justify-content-between" data-category="modems">
+							<h6 class="m-1">Modems</h6>
+						    <span class="badge badge-default badge-pill">2</span>
+						</li>
+						<li class="list-group-item justify-content-between" data-category="access">
+							<h6 class="m-1">Accessories</h6>
+						    <span class="badge badge-default badge-pill">2</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- Content -->
+
+
+			<div class="col-md-9">
+				<div id="content">
+					<h2>Computers</h2>
+					<hr>
+					<div id="computers" class="container">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+
+
 <script type="text/javascript" src="js/filesize.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -358,6 +454,7 @@ small>p {
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.3.0/js/mdb.min.js"></script>
 <script type="text/javascript" src="js/moment.js"></script>
+<script type="text/javascript" src="js/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="js/elm.js"></script>
 <script type="text/javascript" src="js/elm-components.js"></script>
 <script type="text/javascript" src="js/messages.js"></script>
@@ -368,5 +465,6 @@ small>p {
 <script type="text/javascript" src="js/research.js"></script>
 <script type="text/javascript" src="memorylane.js"></script>
 <script type="text/javascript" src="js/wireframetesting.js"></script>
+
 </body>
 </html>

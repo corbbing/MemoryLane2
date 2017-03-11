@@ -25,6 +25,7 @@ function Computer(conf){
 	this.bought = true;
 	this.mods = [];
 	this.card = new ComputerCard(this);
+	this.forpreference = conf.pref || "mac";
 }
 
 Computer.prototype.buysell = function () {

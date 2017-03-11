@@ -73,3 +73,10 @@ var msg = "<ul><li>Intel 461</li></ul>";
 // Test.show(function (arg) {
 // 	$("#project1").html(arg);
 // })
+
+
+function notify(title,msg,type){
+	$.notify({title:title,type:type||"",message:msg||""});
+}
+
+

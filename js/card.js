@@ -48,6 +48,11 @@ function Card(obj,parent){
 	this.progress_bar = new lm.Div(this.card_block,"","progress");
 	this.progress = new lm.Div(this.progress_bar,"","progress-bar bg-info");
 	this.buttons = new lm.Div(this.card_block,"","text-center");
+
+	/* Hide the container, until it's ready to be shown.*/
+	$(this.container.element).hide();
+	this.shown = false;
+
 	var me = this;
 	var type = obj.type;
 	this.upg_btn = new lm.Button(this.buttons,type=="update"? "UPDATE":"UPGRADE",function () {
@@ -55,11 +60,32 @@ function Card(obj,parent){
 			me.startDownload();
 		}
 	},"btn btn-primary");
-	this.sel_btn = new lm.Button(this.buttons,"SELL","","btn btn-primary");
+	this.sel_btn = new lm.Button(this.buttons,"cancel",function () {
+		me.obj.current = 0;
+		me.obj.downloading = false;
+		me.setProgress(0,0,me.obj.getSize());
+		me.upg_btn.enable();
+	},"btn btn-warning");
 	if (obj.sellable == false){
 		this.sel_btn.disable();
 	}
 }
+
+Card.prototype.show = function() {
+	if (this.shown == false){
+		this.shown = true;
+		$(this.container.element).show();
+	}
+};
+
+Card.prototype.hide = function() {
+	if (this.shown == true){
+		this.shown = false;
+		$(this.container.element).hide();
+	}
+};
+
+
 
 // Card.prototype.setProgress = function(percent) {
 // 	this.progress.element.style.width = Math.floor(percent * 100) + "%";

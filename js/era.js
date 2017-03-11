@@ -1,0 +1,4 @@
+function Era(){
+	this.events = [];
+}
+

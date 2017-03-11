@@ -6,11 +6,30 @@ function getResearchList(){
 	var tmp = [];
 	for (var i = 0; i < RESEARCH_LIST.length; i++) {
 		if (GAME.researched.indexOf(RESEARCH_LIST[i]) < 0 &&
-			GAME.researching.indexOf(RESEARCH_LIST[i]) < 0){
-			tmp.push(RESEARCH_LIST[i].name)
+			GAME.researching.indexOf(RESEARCH_LIST[i]) < 0 &&
+			!(RESEARCH_LIST[i].locked)){
+			tmp.push(RESEARCH_LIST[i].name);
 		}
 	};
 	return tmp;
+}
+
+function lockResearch (s) {
+	console.log("locked " + s);
+	RESEARCH[s].locked = true;
+}
+
+function unlockResearch(name){
+	/* Unlock either the name, or a list of items*/
+	if (typeof name == "string"){
+		RESEARCH[name].locked = false;
+	}
+	else {
+		for (var i = 0; i < name.length; i++) {
+			console.log(name);
+			RESEARCH[name[i]].locked = false;
+		};
+	}
 }
 
 function ResearchItem(conf){
@@ -20,14 +39,31 @@ function ResearchItem(conf){
 	this.description = conf.description || "";
 	this.time = conf.time||300000;
 	this.compensation = conf.compensation || 100;
+	this.complete_fn = conf.complete_fn||null;
+	this.locked = conf.locked||false;
+	this.unlocks = conf.unlocks||"";
 	RESEARCH_LIST.push(this);
 	RESEARCH[this.name]=this;
 }
+
+ResearchItem.prototype.getMaxTime = function() {
+	return this.time * 0.01;
+};
+
+ResearchItem.prototype.complete = function() {
+	if (this.unlocks != ([] || "")){
+		unlockResearch(this.unlocks);
+	}
+};
 
 new ResearchItem({
 	name:"Intel 486",
 	description: "Literally triples* your internet speed. *(actually increases it just a tiny bit. But hey! It makes a difference!)",
 	value : 0.5,
+	unlocks : ["i80 LaunchForce HardDrive","GZip"],
+	complete_fn : function(){
+		notify("You have unlocked ")
+	}
 });
 
 new ResearchItem({
@@ -36,7 +72,9 @@ new ResearchItem({
 	description : "The i80 LaunchForce HardDrive lets you store an incredible amount of things in a tiny little box. <br> +$1000.00",
 	value : 4,
 	time: 1200000,
-	compensation : 1000
+	compensation : 1000,
+	locked : true,
+	unlocks : "High Powered Modems",
 });
 
 new ResearchItem({
@@ -45,7 +83,9 @@ new ResearchItem({
 	time: 120000,
 	compensation: 15,
 	description : "\"I need you to take on this project. I'll pay you in full. I need it now. Now, I said, now!\"",
-	value : 0.1,
+	value : 0.25,
+	locked : true,
+	unlocks:"Duh Fing Compaktuh",
 });
 
 new ResearchItem({
@@ -54,6 +94,7 @@ new ResearchItem({
 	key : "storage",
 	value : 0.12,
 	time: 47000,
+	locked : true,
 	compensation : 100
 });
 
@@ -62,6 +103,7 @@ new ResearchItem({
 	description : "These modems boast almost 60kbps! The fastest you'll ever find!",
 	key : "mult",
 	value : 1,
+	locked : true,
 	time: 3600000,
 	compensation : 3
 });
@@ -81,7 +123,22 @@ new ResearchItem({
 	key : "mult",
 	value : 1,
 	time: 3600000,
-	compensation : 1000
+	compensation : 1000,
+	complete_fn : function () {
+		lockResearch("Online Commerce");
+	}
+});
+
+new ResearchItem({
+	name:"Online Commerce",
+	description : "What's better than searching the internet? Searching the internet without someone needing to make a phone call in the middle of a great article!",
+	key : "mult",
+	value : 1,
+	time: 3600000,
+	compensation : 1000,
+	complete_fn : function () {
+		lockResearch("Online Piracy");
+	}
 });
 
 
@@ -94,6 +151,7 @@ function ResearchWrapper(conf){
 	this.completed = false;
 	this.item = conf.item ? RESEARCH[conf.item] : null;
 	var me = this;
+	this.shown = true;
 	$("#"+this.selector+"_startbtn").click(function () {
 		var Test = new ModalList(getResearchList(),{
 			custom_message : "No research options available. Try again in a couple.",
@@ -126,11 +184,34 @@ ResearchWrapper.prototype.reset = function() {
 };
 
 ResearchWrapper.prototype.draw = function (delta) {
-	if (GAME.versions["macos9"] <= 0){
+	if (this.item){
+		if (this.item.unlocks){
+			var s = "";
+			if (typeof this.item.unlocks == "string"){
+				s = this.item.unlocks;
+			}
+			else {
+				s = this.item.unlocks.join(",");
+			}
+			$("#"+this.selector+"_badge").html(s)
+		}
+		// For online piracy or commerce
+
+		if (this.item.locked) {
+			this.reset()
+		}
+	}
+	else {
+		$("#"+this.selector+"_badge").html("None")
+	}
+
+
+	if (GAME.versions["macos9"] <= 0 && this.shown == true){
 		$("#research").hide();
 	}
 	else {
-		$("#research").show();
+		$("#research").slideDown();
+		this.shown = true;
 	}
 	if (this.started && this.item){
 		this.time += delta;
@@ -138,12 +219,12 @@ ResearchWrapper.prototype.draw = function (delta) {
 		$("#"+this.selector + "_choose").hide();
 		$("#"+this.selector + "_prog").show();
 		$("#"+this.selector + "_name").html(this.item.name);
-		$("#"+this.selector + "_time").html("Takes about " + moment.duration(this.item.time).humanize());
-		$("#"+this.selector + "_remaining").html("Ready "+moment().to(Date.now() + (this.item.time-this.time)));
-		$("#"+this.selector + "_progressbar")[0].style.width = ((this.time / this.item.time) * 100)+"%"
+		$("#"+this.selector + "_time").html("Takes about " + moment.duration(this.item.getMaxTime()).humanize());
+		$("#"+this.selector + "_remaining").html("Ready "+moment().to(Date.now() + (this.item.getMaxTime()-this.time)));
+		$("#"+this.selector + "_progressbar")[0].style.width = ((this.time / this.item.getMaxTime()) * 100)+"%"
 		$("#"+this.selector + "_desc").html(this.item.description || "");
 		var me = this;
-		if (this.time > this.item.time) {
+		if (this.time > this.item.getMaxTime()) {
 			this.completed = true;
 			$("#"+this.selector+"_cancelbtn")
 				.removeClass("btn-danger")
@@ -152,6 +233,10 @@ ResearchWrapper.prototype.draw = function (delta) {
 				.unbind( "click" )
 				.click(function(){
 					if (me.item){
+						me.item.complete();
+						if (me.item.complete_fn) {
+							me.item.complete_fn();
+						}
 						GAME.researched.push(me.item);
 						GAME.money += me.item.compensation;
 						me.reset();

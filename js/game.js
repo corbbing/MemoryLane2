@@ -1,3 +1,12 @@
+/*
+
+The Game Class
+
+Holds the information such as what's been downloaded
+upgraded, as well as money and 
+
+*/
+
 function Game () {
 	this.upgrades = [
 		{name:"MacOS8",count:0,amt:100},
@@ -8,22 +17,12 @@ function Game () {
 		{name:"MacOSX",count:0,amt:0},
 		{name:"macos9",count:0,amt:100}
 	];
-	this.tutorial = true;
+	this.tutorial = false;
 	this.tutorialID = 0;
 	this.updates = [];
 	this.versions = {};
 	this.downloading = [];
 	this.computer = Computer.PowerBook100;
-	this.research = {
-		"intel" : {
-			amt : 1024,
-			complete : false
-		},
-		"base64" : {
-			amt : 1024,
-			complete : true,
-		},
-	};
 	this.money = 1030;
 	this.data = JSON.stringify(localStorage.memorylane2001) || "{}";
 	this.preference = "mac";
@@ -50,7 +49,7 @@ function Game () {
 Game.prototype.getTotal = function() {
 	var total = 0;
 	for (var i = 0; i < this.upgrades.length; i++) {
-		total += this.upgrades[i].count > 0 ? this.upgrades[i].getSize(1) : 0;
+		total += this.upgrades[i].count > 0 ? this.upgrades[i].getSize(-1) : 0;
 	};
 	return total;
 };
@@ -144,7 +143,7 @@ Draw the game
 		}
 	};
 	var now = Date.now();
-	var delta = now - this.lastTime;
+	var delta = (now - this.lastTime) * 1;
 	for (name in this.researchwrappers){
 		this.researchwrappers[name].draw(delta);
 	}
@@ -198,7 +197,7 @@ Game.prototype.getCompressionRatio = function () {
 	return ratio + base64.complete + gzip.complete;
 }
 
-var tmp = '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>';
+// var tmp = '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>';
 
 var tutkeys = [
 	{

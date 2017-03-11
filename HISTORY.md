@@ -113,6 +113,45 @@ Add priority for downloads.
 
 Add saves
 
+Add software buying
+
+Day 5
+
+Added some functionality
+
+Day 6
+
+Adding shopping
+
+Show money at the top, with the stats on the top right corner, and the title on the left
+
+The height of the money should be the same as the height of all of the stats on top of each other.
+
+The side bar should have trees of options for categories, and all.
+
+The shopping side should also include the "year" or Era.
+
+Show only the icons when in mobile. Hide the text. The icons are square.
+
+
+
+
+
+
+
+
+
+The computer speed should come before modems, so you have to buy new modems when they come out.
+
+
+
+
+
+
+
+
+
+
 
 
 

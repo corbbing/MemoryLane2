@@ -9,8 +9,8 @@ function Upgrade(name,conf){
 	this.size = conf.size || 19710;
 	this.current = conf.current || 0;
 	this.src = "img/laser.jpg";
-	this.bps = 10;
-	this.bpc = 2;
+	// this.bps = 10;
+	this.bpc = 2103;
 	this.downloading = false;
 	this.unique = conf.unique||false;
 	this.version = 0;
@@ -20,6 +20,10 @@ function Upgrade(name,conf){
 	this.type = conf.type || "upgrade";
 	this.card = new Card(this,$("#upgrades")[0]);
 	this.value = conf.value||100;
+	this.unlock_fn = conf.unlock_fn||-1;
+	this.unlock_vn = conf.unlock_vn||null;
+	this.forpreference = conf.pref||"mac";
+	this.sold = false;
 }
 
 Upgrade.prototype.checkRequirements = function (reqs) {
@@ -77,12 +81,24 @@ Upgrade.prototype.getPercent = function() {
 	return this.current / this.getSize();
 };
 
+Upgrade.prototype.sell = function() {
+	this.sold = true;
+	GAME.pay(this.BPC)
+};
+
+Upgrade.prototype.stop = function() {
+	this.current = 0;
+	this.downloading = false;
+
+};
+
 Upgrade.prototype.draw = function(delta_t) {
 	if (this.sellable == false){
 		this.card.sel_btn.disable();
 	}
 	if (this.checkRequirements(this.requires) == 1){
 		$(this.card.card.element).removeClass("faded")
+		this.card.show()
 		$(this.card.title.element).html(this.title + " ver." + this.version);
 	}
 	else {
@@ -107,11 +123,23 @@ Upgrade.prototype.draw = function(delta_t) {
 		this.card.setCount();
 		this.current = 0;
 		this.version++;
+		if (this.version == this.unlock_vn){
+			this.unlock_fn()
+		}
 		this.downloading = false;
 		this.card.setProgress(0, this.current, this.getSize());
 	}
 	this.card.BPC.setName("$" + this.value);
 };
+
+/*Extra Functions*/
+
+function makeNotification(title,msg,type){
+	function doNotify(){
+		notify(title,msg,type)
+	}
+	return doNotify;
+}
 
 Upgrade["MacOS8"] = new Upgrade("MacOS8",{
 	size: 140573 ,
@@ -149,6 +177,8 @@ Upgrade.macos9 = new Upgrade("macos9",{
 			min : 5
 		}
 	},
+	unlock_fn : makeNotification("You've unlocked research!","You can now start researching new technology.","success"),
+	unlock_vn : 1,
 	bonus : 140914,
 })
 Upgrade.Lotus = new Upgrade("Lotus",{
