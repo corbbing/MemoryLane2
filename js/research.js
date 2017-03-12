@@ -19,6 +19,10 @@ function lockResearch (s) {
 	RESEARCH[s].locked = true;
 }
 
+function loadResearch (obj) {
+	RESEARCH[obj.name].fromJSON(obj);
+}
+
 function unlockResearch(name){
 	/* Unlock either the name, or a list of items*/
 	if (typeof name == "string"){
@@ -37,13 +41,27 @@ function ResearchItem(conf){
 	this.key = conf.key || "mult";
 	this.value = conf.value||1;
 	this.description = conf.description || "";
-	this.time = conf.time||300000;
+	this.time = conf.time||3000;
 	this.compensation = conf.compensation || 100;
 	this.complete_fn = conf.complete_fn||null;
 	this.locked = conf.locked||false;
 	this.unlocks = conf.unlocks||"";
 	RESEARCH_LIST.push(this);
 	RESEARCH[this.name]=this;
+}
+
+ResearchItem.prototype.toJSON = function(){
+	return {
+		name : this.name,
+		time : this.time,
+		locked : this.locked
+	}
+}
+
+ResearchItem.prototype.fromJSON = function(obj){
+	this.name=obj.name;
+	this.time=obj.time;
+	this.locked=obj.locked;
 }
 
 ResearchItem.prototype.getMaxTime = function() {
@@ -60,10 +78,7 @@ new ResearchItem({
 	name:"Intel 486",
 	description: "Literally triples* your internet speed. *(actually increases it just a tiny bit. But hey! It makes a difference!)",
 	value : 0.5,
-	unlocks : ["i80 LaunchForce HardDrive","GZip"],
-	complete_fn : function(){
-		notify("You have unlocked ")
-	}
+	unlocks : ["i80 LaunchForce HardDrive","GZip"]
 });
 
 new ResearchItem({
@@ -103,6 +118,7 @@ new ResearchItem({
 	description : "These modems boast almost 60kbps! The fastest you'll ever find!",
 	key : "mult",
 	value : 1,
+	unlocks : "Hypertext Markup Language",
 	locked : true,
 	time: 3600000,
 	compensation : 3
@@ -121,19 +137,19 @@ new ResearchItem({
 	name:"Online Piracy",
 	description : "What's better than searching the internet? Searching the internet without someone needing to make a phone call in the middle of a great article!",
 	key : "mult",
-	value : 1,
+	value : 0,
 	time: 3600000,
 	compensation : 1000,
 	complete_fn : function () {
-		lockResearch("Online Commerce");
+		lockResearch("Copyright Advocacy");
 	}
 });
 
 new ResearchItem({
-	name:"Online Commerce",
+	name:"Copyright Advocacy",
 	description : "What's better than searching the internet? Searching the internet without someone needing to make a phone call in the middle of a great article!",
 	key : "mult",
-	value : 1,
+	value : 0,
 	time: 3600000,
 	compensation : 1000,
 	complete_fn : function () {
@@ -141,6 +157,69 @@ new ResearchItem({
 	}
 });
 
+new ResearchItem({
+	name:"Hypertext Markup Language",
+	description : "Research the founding principles of this new language. Maybe it'll come in handy some day. No use for it now though.",
+	key : "mult",
+	value : 0.1,
+	time: 7200000,
+	locked : true,
+	unlocks : "Gecko Engine",
+	compensation : 10000
+});
+
+new ResearchItem({
+	name:"Gecko Engine",
+	description : "Remember that Hypertext stuff I talked about, well this makes it useful.",
+	key : "mult",
+	value : 1,
+	time: 7200000,
+	compensation : 10000,
+	locked : true,
+	unlocks : "Dillo Engine"
+});
+
+new ResearchItem({
+	name:"Dillo Engine",
+	description : "Well Gecko was reliable, good job. But now we need something more better.",
+	key : "mult",
+	value : 1,
+	time: 14400000,
+	unlocks : "Webkit Engine",
+	compensation : 10000,
+	locked : true,
+});
+
+new ResearchItem({
+	name:"Webkit Engine",
+	description : "The most powerful web engine to be released. Superior content creation. Beautiful page rendering. It's Webkit.",
+	key : "mult",
+	value : 1,
+	time: 14400000,
+	unlocks : ["Blink Engine","HTML5"],
+	compensation : 10000,
+	locked : true,
+});
+
+new ResearchItem({
+	name:"Blink Engine",
+	description : "Well all that Webkit stuff was shite, now wasn't it. Now it will look it at least.",
+	key : "mult",
+	value : 1,
+	time: 14400000,
+	compensation : 10000,
+	locked : true,
+});
+
+new ResearchItem({
+	name:"HTML5",
+	description : "Remember that Hypertext stuff I talked about? Well this is better.",
+	key : "mult",
+	value : 1,
+	time: 14400000,
+	compensation : 10000,
+	locked : true,
+});
 
 function ResearchWrapper(conf){
 	this.selector = conf.selector||"#project1";
@@ -181,6 +260,23 @@ ResearchWrapper.prototype.reset = function() {
 	this.started = false;
 	this.completed = false;
 	this.time = 0;
+};
+
+ResearchWrapper.prototype.fromJSON = function(obj) {
+	this.time = obj.time;
+	this.started = obj.started;
+	this.item = obj.item ? RESEARCH[obj.item] : null;
+	this.completed = obj.completed;
+	console.log(obj)
+};
+
+ResearchWrapper.prototype.toJSON = function() {
+	return {
+		item : this.item ? this.item.name : null,
+		time : this.time,
+		completed : this.completed,
+		started : this.started
+	}
 };
 
 ResearchWrapper.prototype.draw = function (delta) {

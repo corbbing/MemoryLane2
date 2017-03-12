@@ -1,7 +1,7 @@
-Add popovers for tutorial.
+- Add popovers for tutorial.
 
 
-Implement max-download speed, like 2mb/second until you can get the upgrade.
+- Implement max-download speed, like 2mb/second until you can get the upgrade.
 
 
 
@@ -15,7 +15,7 @@ Download software and hardware until you reach the max download speed, and it ta
 
 Choose Mac or Windows when you start!
 
-Start with $1030
+- Start with $1030 (why this number again?)
 
 
 
@@ -68,7 +68,9 @@ Research uses Electricity, if it's running. You can have a maximum of 3 research
 
 In other words, by playing the game you're not only seeing the history, you're interacting with it.
 
+Time released research that becomes available after finishing other research.
 
+Research sources, such as IBM, Apple, Google
 
 
 

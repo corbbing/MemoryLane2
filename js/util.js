@@ -1,3 +1,10 @@
+var Errors = {
+	"UtilStorage0" : "No key to save to in .parse()",
+	"UtilStorage1" : "data is empty.",
+}
+
+
+
 var Util = {};
 
 Util.checkRequirements = function (reqs) {
@@ -29,3 +36,64 @@ Util.checkRequirements = function (reqs) {
 Util.sizeForVersion= function  (v,sz) {
 	
 }
+
+Util.error = function (name,error) {
+	console.error(Errors[name+error])
+}
+
+Util.storage = {}
+
+Util.storage.parse = function(){
+	if (localStorage["memorylane2"]){
+		var obj
+		try {
+			obj = JSON.parse(localStorage["memorylane2"]);
+		}
+		catch (ex) {
+			Util.error("UtilStorage1");
+
+			return {};
+		}
+	}
+	else {
+		Util.error("UtilStorage0");
+		return {};
+	}
+}
+
+Util.storage.save = function(data){
+	// JSON.parse(localStorage["memorylane2"]);
+	localStorage["memorylane2"] = JSON.stringify(data);
+}
+
+Util.storage.getKey = function (key) {
+	var obj = Util.storage.parse();
+	if (typeof obj == 0){
+		Util.error("UtilStorage"+obj);
+	}
+	else {	
+		if (obj[key]){
+			return [key];
+		}
+	}
+	return null;
+}
+
+Util.storage.setKey = function (key,data) {
+	var obj = Util.storage.parse();
+	obj[key] = data;
+	Util.storage.save(obj);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

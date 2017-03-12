@@ -1,3 +1,8 @@
+var UPGRADES = {};
+
+function loadUpgrade (obj) {
+	UPGRADES[obj].name.fromJSON(obj);
+}
 
 function Upgrade(name,conf){
 	this.title = name;
@@ -24,6 +29,29 @@ function Upgrade(name,conf){
 	this.unlock_vn = conf.unlock_vn||null;
 	this.forpreference = conf.pref||"mac";
 	this.sold = false;
+	
+	// Store this in the UPGRADES
+
+	UPGRADES[name] = this;
+}
+
+Upgrade.prototype.fromJSON = function (obj) {
+	this.count = obj.count;
+	this.current = obj.current;
+	this.downloading = obj.downloading;
+	this.version = obj.version;
+	this.sold = obj.sold;
+}
+
+Upgrade.prototype.toJSON = function () {
+	return {
+		name: this.name,
+		count: this.count,
+		current : this.current,
+		downloading : this.downloading,
+		version : this.version,
+		sold : this.sold
+	}
 }
 
 Upgrade.prototype.checkRequirements = function (reqs) {

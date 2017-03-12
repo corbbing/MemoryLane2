@@ -46,6 +46,84 @@ function Game () {
 	}
 }
 
+Game.prototype.researchedToJSON = function() {
+	var tmp = [];
+	for (var i = 0; i < this.researched.length; i++) {
+		tmp.push(this.researched[i].toJSON());
+	};
+	return tmp;
+};
+
+Game.prototype.researchedFromJSON = function(a) {
+	var tmp = [];
+	for (var i = 0; i < a.length; i++) {
+		RESEARCH[a[i].name].fromJSON(a[i]);
+		this.researched.push(RESEARCH[a[i].name]);
+	};
+	return tmp;
+};
+
+Game.prototype.downloadingToJSON = function() {
+	var tmp = [];
+	for (var i = 0; i < this.downloading.length; i++) {
+		tmp.push(this.downloading[i].toJSON());
+	};
+	return tmp;
+};
+
+
+Game.prototype.downloadingFromJSON = function(obj) {
+	var tmp = [];
+	for (var i = 0; i < this.downloading.length; i++) {
+		UPGRADES[obj[i].name].fromJSON(obj[i]);
+		tmp.push(UPGRADES[obj.name]);
+	};
+	this.downloading = tmp;
+};
+
+Game.prototype.upgradesToJSON = function() {
+	var tmp = [];
+	for (var i = 0; i < this.upgrades.length; i++) {
+		tmp.push(this.upgrades[i].toJSON());
+	};
+	return tmp;
+};
+
+
+Game.prototype.upgradesFromJSON = function(obj) {
+	var tmp = [];
+	for (var i = 0; i < this.upgrades.length; i++) {
+		UPGRADES[obj[i].name].fromJSON(obj[i]);
+		tmp.push(UPGRADES[obj[i].name]);
+	};
+	console.log(obj)
+	this.upgrades = tmp;
+};
+
+Game.prototype.save = function() {
+	var obj = {
+		researched : this.researchedToJSON(),
+		researchwrappers : {
+			p1 : this.researchwrappers.p1.toJSON(),
+			p2 : this.researchwrappers.p2.toJSON(),
+			p3 : this.researchwrappers.p3.toJSON()
+		},
+		downloading : this.downloadingToJSON(),
+		upgrades : this.upgradesToJSON(),
+	}
+	return obj;
+};
+
+Game.prototype.load = function(obj) {
+	this.researched = this.researchedFromJSON(obj.researched);
+	console.log(obj.researchwrappers);
+	this.researchwrappers.p1.fromJSON(obj.researchwrappers.p1);
+	this.researchwrappers.p2.fromJSON(obj.researchwrappers.p2);
+	this.researchwrappers.p3.fromJSON(obj.researchwrappers.p3);
+	this.upgradesFromJSON(obj.upgrades);
+	this.downloadingFromJSON(obj.downloading);
+};
+
 Game.prototype.getTotal = function() {
 	var total = 0;
 	for (var i = 0; i < this.upgrades.length; i++) {
