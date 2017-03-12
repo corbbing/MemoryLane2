@@ -63,6 +63,23 @@ Game.prototype.researchedFromJSON = function(a) {
 	return tmp;
 };
 
+Game.prototype.researchingToJSON = function() {
+	var tmp = [];
+	for (var i = 0; i < this.researching.length; i++) {
+		tmp.push(this.researching[i].toJSON());
+	};
+	return tmp;
+};
+
+Game.prototype.researchingFromJSON = function(a) {
+	var tmp = [];
+	for (var i = 0; i < a.length; i++) {
+		RESEARCH[a[i].name].fromJSON(a[i]);
+		this.researching.push(RESEARCH[a[i].name]);
+	};
+	return tmp;
+};
+
 Game.prototype.downloadingToJSON = function() {
 	var tmp = [];
 	for (var i = 0; i < this.downloading.length; i++) {
@@ -103,6 +120,7 @@ Game.prototype.upgradesFromJSON = function(obj) {
 Game.prototype.save = function() {
 	var obj = {
 		researched : this.researchedToJSON(),
+		researching : this.researchingToJSON(),
 		researchwrappers : {
 			p1 : this.researchwrappers.p1.toJSON(),
 			p2 : this.researchwrappers.p2.toJSON(),
@@ -116,6 +134,7 @@ Game.prototype.save = function() {
 
 Game.prototype.load = function(obj) {
 	this.researched = this.researchedFromJSON(obj.researched);
+	this.researching = this.researchingFromJSON(obj.researching);
 	console.log(obj.researchwrappers);
 	this.researchwrappers.p1.fromJSON(obj.researchwrappers.p1);
 	this.researchwrappers.p2.fromJSON(obj.researchwrappers.p2);
@@ -264,7 +283,7 @@ Game.prototype.init = function() {
 
 Game.prototype.getStorage = function() {
 	this.getStats();
-	return this.computer.space * this.stats.storage;
+	return Math.pow(this.computer.space, this.stats.storage);
 };
 
 Game.prototype.getCompressionRatio = function () {

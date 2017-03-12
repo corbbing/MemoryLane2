@@ -65,7 +65,7 @@ ResearchItem.prototype.fromJSON = function(obj){
 }
 
 ResearchItem.prototype.getMaxTime = function() {
-	return this.time * 0.01;
+	return this.time * 1;
 };
 
 ResearchItem.prototype.complete = function() {
@@ -75,7 +75,7 @@ ResearchItem.prototype.complete = function() {
 };
 
 new ResearchItem({
-	name:"Intel 486",
+	name:"PowerPC",
 	description: "Literally triples* your internet speed. *(actually increases it just a tiny bit. But hey! It makes a difference!)",
 	value : 0.5,
 	unlocks : ["i80 LaunchForce HardDrive","GZip"]
@@ -164,15 +164,15 @@ new ResearchItem({
 	value : 0.1,
 	time: 7200000,
 	locked : true,
-	unlocks : "Gecko Engine",
+	unlocks : ["Gecko Engine","Intel x86"],
 	compensation : 10000
 });
 
 new ResearchItem({
 	name:"Gecko Engine",
 	description : "Remember that Hypertext stuff I talked about, well this makes it useful.",
-	key : "mult",
-	value : 1,
+	key : "storage",
+	value : 4,
 	time: 7200000,
 	compensation : 10000,
 	locked : true,
@@ -204,8 +204,8 @@ new ResearchItem({
 new ResearchItem({
 	name:"Blink Engine",
 	description : "Well all that Webkit stuff was shite, now wasn't it. Now it will look it at least.",
-	key : "mult",
-	value : 1,
+	key : "storage",
+	value : 4,
 	time: 14400000,
 	compensation : 10000,
 	locked : true,
@@ -220,6 +220,32 @@ new ResearchItem({
 	compensation : 10000,
 	locked : true,
 });
+
+
+
+new ResearchItem({
+	name:"Intel x86",
+	description : "More powerful than any other chip in the world. Boosts your ram speed and CPU space by ten-fold.",
+	key : "mult",
+	value : 1,
+	unlocks : "Intel Core Duo",
+	time: 14400000,
+	compensation : 10000,
+	locked : true,
+});
+
+new ResearchItem({
+	name:"Intel Core Duo",
+	description : "A wonderful duo of CPU working in harmony.",
+	key : "mult",
+	value : 1,
+	time: 14400000,
+	compensation : 10000,
+	locked : true,
+});
+
+
+
 
 function ResearchWrapper(conf){
 	this.selector = conf.selector||"#project1";
