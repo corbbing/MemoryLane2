@@ -236,3 +236,12 @@ Upgrade.MacOSX = new Upgrade("MacOSX",{
 	},
 	bonus : 452300140,
 })
+Upgrade["MacOS Mountains n shit"] = new Upgrade("MacOS Mountains n shit",{
+	size: 43781941304,
+	requires : {
+		"MacOSX" : {
+			min : 10
+		}
+	},
+	bonus : 452300140,
+})

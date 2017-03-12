@@ -23,7 +23,8 @@ if ("memorylane2" in localStorage){
 // Save every 10 secs.
 
 setInterval(function () {
-	save()
+	save();
+	console.log("saved.")
 },10000)
 
 if (!GAME.preference){

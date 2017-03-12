@@ -46,6 +46,29 @@ function Game () {
 	}
 }
 
+Game.prototype.keyToJSON = function(obj, key){
+	var tmp = [];
+	for (var i = 0; i < this[key].length; i++) {
+		tmp.push(this[key][i].toJSON());
+	};
+	return tmp;
+}
+
+RESEARCHtoJSON = function() {
+	var tmp = {};
+	for (name in RESEARCH){
+		tmp[name] = RESEARCH[name].toJSON();
+	}
+	return tmp;
+};
+
+
+RESEARCHfromJSON = function(obj) {
+	for (name in obj){
+		RESEARCH[name].fromJSON(obj[name]);
+	}
+};
+
 Game.prototype.researchedToJSON = function() {
 	var tmp = [];
 	for (var i = 0; i < this.researched.length; i++) {
@@ -54,13 +77,16 @@ Game.prototype.researchedToJSON = function() {
 	return tmp;
 };
 
+
+
 Game.prototype.researchedFromJSON = function(a) {
-	var tmp = [];
 	for (var i = 0; i < a.length; i++) {
+		console.log(a[i].name)
+		console.log(RESEARCH[a[i].name])
 		RESEARCH[a[i].name].fromJSON(a[i]);
 		this.researched.push(RESEARCH[a[i].name]);
+		console.log(this.researched);
 	};
-	return tmp;
 };
 
 Game.prototype.researchingToJSON = function() {
@@ -119,6 +145,7 @@ Game.prototype.upgradesFromJSON = function(obj) {
 
 Game.prototype.save = function() {
 	var obj = {
+		RESEARCH : RESEARCHtoJSON(),
 		researched : this.researchedToJSON(),
 		researching : this.researchingToJSON(),
 		researchwrappers : {
@@ -133,8 +160,9 @@ Game.prototype.save = function() {
 };
 
 Game.prototype.load = function(obj) {
-	this.researched = this.researchedFromJSON(obj.researched);
-	this.researching = this.researchingFromJSON(obj.researching);
+	RESEARCHfromJSON(obj.RESEARCH);
+	this.researchedFromJSON(obj.researched);
+	this.researchingFromJSON(obj.researching);
 	console.log(obj.researchwrappers);
 	this.researchwrappers.p1.fromJSON(obj.researchwrappers.p1);
 	this.researchwrappers.p2.fromJSON(obj.researchwrappers.p2);
@@ -222,6 +250,14 @@ Draw the game
 
 
 	*/
+
+
+
+
+	var SPEED = 1; //Speeds up the gameplay by this number
+
+
+
 	this.versions = {};
 	this.versions[this.computer.name] = 1;
 	
@@ -240,7 +276,7 @@ Draw the game
 		}
 	};
 	var now = Date.now();
-	var delta = (now - this.lastTime) * 1;
+	var delta = (now - this.lastTime) * SPEED;
 	for (name in this.researchwrappers){
 		this.researchwrappers[name].draw(delta);
 	}

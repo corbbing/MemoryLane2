@@ -25,7 +25,7 @@ li.ccontainer
 
 function Card(obj,parent){
 	this.container = new lm("","li","list-inline-item ccontainer",parent);
-	this.obj = obj; // An instance of "upgrade" or "research"
+	this.obj = obj; // An instance of "upgrade"
 	this.card = new lm.Div(this.container,"","card");
 	$(this.card.element).addClass("faded")
 	// this.img_view = new lm.Div(this.card,"","view overlay hm-white-slight mx-auto");
@@ -60,15 +60,15 @@ function Card(obj,parent){
 			me.startDownload();
 		}
 	},"btn btn-primary");
+	if (obj.version){
+		this.upg_btn.setName("BUY");
+	}
 	this.sel_btn = new lm.Button(this.buttons,"cancel",function () {
 		me.obj.current = 0;
 		me.obj.downloading = false;
 		me.setProgress(0,0,me.obj.getSize());
 		me.upg_btn.enable();
 	},"btn btn-warning");
-	if (obj.sellable == false){
-		this.sel_btn.disable();
-	}
 }
 
 Card.prototype.show = function() {

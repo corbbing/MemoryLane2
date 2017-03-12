@@ -5,6 +5,7 @@ var RESEARCH_LIST = [];
 function getResearchList(){
 	var tmp = [];
 	for (var i = 0; i < RESEARCH_LIST.length; i++) {
+
 		if (GAME.researched.indexOf(RESEARCH_LIST[i]) < 0 &&
 			GAME.researching.indexOf(RESEARCH_LIST[i]) < 0 &&
 			!(RESEARCH_LIST[i].locked)){
@@ -85,7 +86,7 @@ new ResearchItem({
 	name:"i80 LaunchForce HardDrive",
 	key : "storage",
 	description : "The i80 LaunchForce HardDrive lets you store an incredible amount of things in a tiny little box. <br> +$1000.00",
-	value : 4,
+	value : 0.1,
 	time: 1200000,
 	compensation : 1000,
 	locked : true,
@@ -172,7 +173,7 @@ new ResearchItem({
 	name:"Gecko Engine",
 	description : "Remember that Hypertext stuff I talked about, well this makes it useful.",
 	key : "storage",
-	value : 4,
+	value : 0.1,
 	time: 7200000,
 	compensation : 10000,
 	locked : true,
@@ -205,7 +206,7 @@ new ResearchItem({
 	name:"Blink Engine",
 	description : "Well all that Webkit stuff was shite, now wasn't it. Now it will look it at least.",
 	key : "storage",
-	value : 4,
+	value : 0.1,
 	time: 14400000,
 	compensation : 10000,
 	locked : true,
@@ -291,9 +292,9 @@ ResearchWrapper.prototype.reset = function() {
 ResearchWrapper.prototype.fromJSON = function(obj) {
 	this.time = obj.time;
 	this.started = obj.started;
+	console.log(RESEARCH[obj.item]);
 	this.item = obj.item ? RESEARCH[obj.item] : null;
 	this.completed = obj.completed;
-	console.log(obj)
 };
 
 ResearchWrapper.prototype.toJSON = function() {
