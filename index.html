@@ -102,6 +102,12 @@ small>p {
 	box-shadow: 10px 10px #000;
 }
 
+.computer-card{
+	width: 300px;
+    white-space: initial;
+
+}
+
 	</style>
 </head>
 <body>
@@ -270,7 +276,7 @@ small>p {
 <section class="game">
 	<div class="container">
 		<div class="row">
-			<ul id="computers" class="list-inline p-3">
+			<ul id="computersold" class="list-inline p-3">
 			</ul>
 		</div>
 	</div>
@@ -435,7 +441,36 @@ small>p {
 
 
 			<div class="col-md-9">
-				<div id="content">
+				<div id="computers_content">
+					<h2>Computers</h2>
+					<hr>
+					<div class="container">
+						<ul class="p-3 list-inline" id="computers">
+							<li class="list-inline-item">
+								<div class="card m-2 p-2 computer-card">
+									<div class="card-block">
+										<div class="card-title">
+											<h3>MacBook Pro</h3>
+										</div>
+										<div class="card-text">
+												The quickest in the west. Built with superior technology.
+
+										</div>
+										<span class="badge grey darken-2">$1999.00</span>
+										<div class="text-center">
+											<button class="btn btn-primary">Buy</button>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div id="computers_content">
+					<h2>Modems</h2>
+					<hr>
+				</div>
+				<div id="computers_content">
 					<h2>Computers</h2>
 					<hr>
 					<div id="computers" class="container">
@@ -448,7 +483,7 @@ small>p {
 
 </section>
 
-<section>
+<section class="game">
 	<div class="container text-center">
 		<button onclick="delete localStorage.memorylane2">Hard Reset</button>
 	</div>

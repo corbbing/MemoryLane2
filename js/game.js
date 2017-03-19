@@ -15,7 +15,8 @@ function Game () {
 		{name:"Lotus",count:0,amt:0},
 		{name:"eWorld",count:0,amt:0},
 		{name:"MacOSX",count:0,amt:0},
-		{name:"macos9",count:0,amt:100}
+		{name:"macos9",count:0,amt:100},
+		{name:"MacOS Mountains n shit",count:0,amt:100}
 	];
 	this.tutorial = false;
 	this.tutorialID = 0;
@@ -38,6 +39,7 @@ function Game () {
 	}
 	this.researched = [];
 	this.researching = [];
+	this.transactions = [{type:"research",name:"PowerPC"},{type:"research",name:"Webkit Engine"}];
 	this.stats = {
 		mult : 1,
 		compression : 1,
@@ -46,12 +48,51 @@ function Game () {
 	}
 }
 
+function parseTransaction(obj){
+	if (obj.type == "research"){
+		var tmp = RESEARCH[obj.name];
+		return tmp.compensation;
+	}
+	if (obj.type == "computer"){
+		var tmp = COMPUTERS[obj.name];
+		return -tmp.price;
+	}
+	if (obj.type == "upgrade"){
+		var tmp = RESEARCH[obj.name];
+		return -tmp.price;
+	}
+}
+
+Game.prototype.createTransaction = function(type,name) {
+	this.transactions.push({name:name,type:type})
+};
+
+Game.prototype.getMoney = function() {
+	var money = 1030;
+	var tob = {};
+	for (var i = 0; i < this.transactions.length; i++) {
+		if (!(this.transactions[i].name in tob)){
+			money += parseTransaction(this.transactions[i]);
+		}
+		else {
+			console.log("dupe.")
+		}
+	};
+	this.money = money;
+};
+
+
+
 Game.prototype.keyToJSON = function(obj, key){
 	var tmp = [];
 	for (var i = 0; i < this[key].length; i++) {
 		tmp.push(this[key][i].toJSON());
 	};
 	return tmp;
+}
+
+Game.prototype.setComputer = function () {
+	
 }
 
 RESEARCHtoJSON = function() {
@@ -155,6 +196,7 @@ Game.prototype.save = function() {
 		},
 		downloading : this.downloadingToJSON(),
 		upgrades : this.upgradesToJSON(),
+		computer : this.computer.name,
 	}
 	return obj;
 };
@@ -169,6 +211,7 @@ Game.prototype.load = function(obj) {
 	this.researchwrappers.p3.fromJSON(obj.researchwrappers.p3);
 	this.upgradesFromJSON(obj.upgrades);
 	this.downloadingFromJSON(obj.downloading);
+	this.computer = COMPUTERS[obj.computer];
 };
 
 Game.prototype.getTotal = function() {
@@ -252,9 +295,9 @@ Draw the game
 	*/
 
 
+	this.getMoney();
 
-
-	var SPEED = 1; //Speeds up the gameplay by this number
+	var SPEED = 100; //Speeds up the gameplay by this number
 
 
 

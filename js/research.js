@@ -242,6 +242,17 @@ new ResearchItem({
 	value : 1,
 	time: 14400000,
 	compensation : 10000,
+	unlocks : ["GeForce HardDrive Backup 1TB"],
+	locked : true,
+});
+
+new ResearchItem({
+	name:"GeForce HardDrive Backup 1TB",
+	description : "A Superior HardDrive Backup system. Store all of your files. 20 times over.",
+	key : "storage",
+	value : 0.2,
+	time: 1443000,
+	compensation : -1000,
 	locked : true,
 });
 

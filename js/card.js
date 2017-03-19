@@ -129,7 +129,7 @@ li.list-inline-item
 
 
 
-function ComputerCard(conf){
+function ComputerCardOLD(conf){
 	this.conf = conf;
 	this.container = new lm("","li","list-inline-item",$("#computers")[0]);
 	this.card = new lm("","div","card",this.container);
@@ -145,6 +145,106 @@ function ComputerCard(conf){
 		conf.buysell();
 	})
 }
+
+
+/*
+
+li.card m-2 p-2 computer-card
+	div.card-block
+		div.card-title
+			h3 TITLE
+		div.card-text DESC
+		span.badge grey darken-2 PRICE
+		div.text-center
+			button.btn btn-primary BUTTON
+
+*/
+
+function ComputerCardOLD(conf){
+	this.conf = conf;
+	this.container = new lm("","li","list-inline-item",$("#computers")[0]);
+	this.card = new lm("","div","card",this.container);
+	this.padding = new lm("","div","p-3",this.card);
+	this.title = new lm(conf.name||"","h4","",this.padding);
+	this.inf = new lm("","ul","",this.padding);
+	this.speed = new lm(conf.speed||"","li","",this.inf);
+	this.storage = new lm(conf.storage||"","li","",this.inf);
+	this.price = new lm(conf.price||"","li","",this.inf);
+	this.btn_cont = new lm("","div","text-center",this.inf);
+	this.btn = new lm("Buy/sell","button","btn btn-primary btn-lg",this.inf);
+	$(this.btn.element).click(function  (argument) {
+		conf.buysell();
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+BUYABLE Card
+
+buy function
+
+if GAME.buy == true(){
+	this.buy
+}
+
+or something
+
+*/
+
+
+
+/*
+
+
+li.list-inline-item
+	div.card m-2 p-2 computer-card
+		div.card-block
+			div.card-title
+				h3 TITLE
+			div.card-text TEXT
+			span badge grey darken-2 PRICE
+			div.text-center
+				button.btn btn-primary BUYBUTTON
+*/
+
+function ComputerCard(conf){
+	this.conf = conf;
+	this.container = new lm("","li","list-inline-item",$("#computers")[0]);
+	this.card = new lm.Div(this.container,"","card m-2 p-2 computer-card");
+	this.cb = new lm.Div(this.card,"","card-block");
+	this.ct = new lm.Div(this.cb,"","card-title");
+	this.title = new lm(conf.name||"","h3","",this.ct);
+	this.text = new lm(conf.description||"","div","card-text",this.cb);
+	this.text = new lm(filesize(conf.speed || 0)+"/sec"||"","div","card-text",this.cb);
+	this.price = new lm(conf.price||"","span","badge grey darken-2",this.cb);
+	this.btn_cont = new lm.Div(this.cb,"","text-center");
+	var me = this;
+	this.btn = new lm.Button(this.btn_cont,"BUY",function () {
+		me.conf.buy();
+	},"btn btn-primary")
+}
+
+ComputerCard.prototype.buy = function() {
+	$(this.container.element).addClass("faded");
+	this.btn.disable()
+};
+
+
+
+
+
+
 
 
 

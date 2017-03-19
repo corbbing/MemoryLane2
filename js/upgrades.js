@@ -13,7 +13,6 @@ function Upgrade(name,conf){
 	this.value = conf.value||0;
 	this.size = conf.size || 19710;
 	this.current = conf.current || 0;
-	this.src = "img/laser.jpg";
 	// this.bps = 10;
 	this.bpc = 2103;
 	this.downloading = false;
@@ -24,7 +23,7 @@ function Upgrade(name,conf){
 	this.requires = conf.requires || {};
 	this.type = conf.type || "upgrade";
 	this.card = new Card(this,$("#upgrades")[0]);
-	this.value = conf.value||100;
+	this.price = conf.price||100;
 	this.unlock_fn = conf.unlock_fn||-1;
 	this.unlock_vn = conf.unlock_vn||null;
 	this.forpreference = conf.pref||"mac";
