@@ -197,6 +197,7 @@ Game.prototype.save = function() {
 		downloading : this.downloadingToJSON(),
 		upgrades : this.upgradesToJSON(),
 		computer : this.computer.name,
+		money : this.money
 	}
 	return obj;
 };
@@ -211,6 +212,7 @@ Game.prototype.load = function(obj) {
 	this.researchwrappers.p3.fromJSON(obj.researchwrappers.p3);
 	this.upgradesFromJSON(obj.upgrades);
 	this.downloadingFromJSON(obj.downloading);
+	this.money = obj.money;
 	this.computer = COMPUTERS[obj.computer];
 };
 
