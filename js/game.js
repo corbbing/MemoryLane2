@@ -299,7 +299,7 @@ Draw the game
 
 	this.getMoney();
 
-	var SPEED = 100; //Speeds up the gameplay by this number
+	var SPEED = 1; //Speeds up the gameplay by this number
 
 
 
